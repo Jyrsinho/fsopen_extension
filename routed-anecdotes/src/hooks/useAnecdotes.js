@@ -5,9 +5,12 @@ const useAnecdotes = () => {
     const [anecdotes, setAnecdotes] = useState([])
 
     useEffect(() => {
-        anecdoteService.getAll()
-            .then(data => setAnecdotes(data))
-    })
+        const getAnecdotes = async () => {
+            const anecdotes = await anecdoteService.getAll()
+            setAnecdotes(anecdotes)
+        }
+        getAnecdotes()
+    },[])
     
     const addAnecdote = async (newAnecdote) => {
         const createdAnecdote = await anecdoteService.createNew(newAnecdote)
