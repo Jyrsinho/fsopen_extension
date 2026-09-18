@@ -1,7 +1,7 @@
 const Footer = () => (
-  <div>
+    <div>
     Anecdote app for <a href='https://fullstackopen.com/'>Full Stack Open</a>.
-  </div>
+    </div>
 )
 
 export default Footer
