@@ -8,13 +8,8 @@ import useAnecdotes from "./hooks/useAnecdotes.js";
 
 const App = () => {
 
-    const anecdotes = useAnecdotes()
+    const {anecdotes, addAnecdote} = useAnecdotes()
     
-    const addAnecdote = (anecdote) => {
-        // setAnecdotes(anecdotes.concat({ ...anecdote, id: Math.round(Math.random() * 10000) }))
-        console.log('adding anecdotes', anecdote)
-    }
-
     return (
         <Router>
             <div>
