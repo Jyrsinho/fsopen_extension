@@ -1,0 +1,1 @@
+Lienee validia testata että delete funktio servicessä tekee pyyntönsä oikeaan osoitteeseen iideen perusteella
