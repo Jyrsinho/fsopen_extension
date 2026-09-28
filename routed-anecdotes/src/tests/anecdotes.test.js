@@ -42,8 +42,46 @@ describe('anecdoteService', () => {
                 .toThrow('Failed to fetch anecdotes')
         })
     })
+    describe('create new anecdote', () => {
+        test('should return created anecdote when request succeeds', async () => {
+            const newAnecdote = {
+                content: "jotain fiksua",
+                author: "Fiksu Tyyppi",
+                info: "www.fiksut.fi",
+                votes: 0,
+                id: "3"
+            }
+            fetch.mockResolvedValue({
+                ok: true,
+                json: async () => newAnecdote
+            })
+            const result = await anecdoteService.createNew(newAnecdote)
+            expect(result).toEqual(newAnecdote)
+        })
+        test('should throw an error when request fails', () => {
+            fetch.mockResolvedValue({
+                ok: false,
+            })
+            expect(anecdoteService.createNew(undefined))
+                .rejects
+                .toThrow('Failed to create anecdote')
+        })
+    })
     describe('delete anecdote', () => {
-        test('should return ')
+        test('should not throw an error when deleting anecdote succeeds', async () => {
+            fetch.mockResolvedValue({
+                ok: true
+            })
+            expect(anecdoteService.remove(2))
+        })
+        test('should throw an error when trying to delete nonexisting anecdote ', async () => {
+            fetch.mockResolvedValue({
+                ok: false,
+            })
+            expect(anecdoteService.remove(4))
+                .rejects
+                .toThrow('Failed to delete anecdote')
+        })
     })
 
 })

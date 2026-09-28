@@ -18,9 +18,20 @@ const useAnecdotes = () => {
         setAnecdotes(newAnecdotes)
     }
 
+    const deleteAnecdote = async (id) => {
+        try {
+            await anecdoteService.delete(id)
+            const newAnecdotes = anecdotes.filter((anecdote) => anecdote.id !== id)
+            setAnecdotes(newAnecdotes)
+        }catch(error) {
+            console.error(error)
+        }
+    }
+
     return {
         anecdotes,
-        addAnecdote
+        addAnecdote,
+        deleteAnecdote,
     }
 
 }

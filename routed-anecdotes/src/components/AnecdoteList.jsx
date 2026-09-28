@@ -10,8 +10,8 @@ const AnecdoteList = ({ anecdotes }) => {
             <h2>Anecdotes</h2>
             <ul>
                 {anecdotes.map(anecdote =>
-                    <div style={anecdoteDivStyle}>
-                        <li key={anecdote.id}>{anecdote.content}</li>
+                    <div key={anecdote.id} style={anecdoteDivStyle}>
+                        <li>{anecdote.content}</li>
                         <button>remove</button>
                     </div>
                 )}
