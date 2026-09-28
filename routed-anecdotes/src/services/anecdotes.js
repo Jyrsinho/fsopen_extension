@@ -28,10 +28,13 @@ const remove = async (id) => {
     const options = {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(id)
     }
+    
+    console.log('inside anecdotes.js')
+    console.log('options', options)
+    console.log('id', id)
 
-    const response = await fetch(baseUrl, options)
+    const response = await fetch(`${baseUrl}/${id}`, options)
     if (!response.ok) {
         throw new Error('Failed to delete anecdote')
     }

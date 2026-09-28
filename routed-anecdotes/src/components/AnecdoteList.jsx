@@ -1,4 +1,8 @@
-const AnecdoteList = ({ anecdotes }) => {
+import useAnecdotes from "../hooks/useAnecdotes.js";
+
+const AnecdoteList = () => {
+
+    const {anecdotes, deleteAnecdote} = useAnecdotes()
 
     const anecdoteDivStyle = {
         display: "flex",
@@ -12,7 +16,7 @@ const AnecdoteList = ({ anecdotes }) => {
                 {anecdotes.map(anecdote =>
                     <div key={anecdote.id} style={anecdoteDivStyle}>
                         <li>{anecdote.content}</li>
-                        <button>remove</button>
+                        <button onClick={ () => deleteAnecdote(anecdote.id)}>remove</button>
                     </div>
                 )}
             </ul>

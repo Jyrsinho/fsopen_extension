@@ -20,7 +20,7 @@ const useAnecdotes = () => {
 
     const deleteAnecdote = async (id) => {
         try {
-            await anecdoteService.delete(id)
+            await anecdoteService.remove(id)
             const newAnecdotes = anecdotes.filter((anecdote) => anecdote.id !== id)
             setAnecdotes(newAnecdotes)
         }catch(error) {
