@@ -6,7 +6,7 @@ import Footer from './components/Footer'
 import CreateNew from './components/CreateNew'
 
 const App = () => {
-
+    console.log('rendered App')
     return (
         <Router>
             <div>

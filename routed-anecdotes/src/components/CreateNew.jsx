@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import {useField} from "../hooks/useField.js";
 import useAnecdotes from "../hooks/useAnecdotes.js";
+import anecdotes from "../services/anecdotes.js";
 
 const CreateNew = () => {
     const [content, resetContent] = useField('text')
@@ -8,11 +9,14 @@ const CreateNew = () => {
     const [info, resetInfo] = useField('text')
     const navigate = useNavigate()
     const {addAnecdote} = useAnecdotes()
+    
+    console.log('rendered CreateNew - component')
+    console.log('anecdotes of createNew - ', anecdotes)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            addAnecdote({
+            await addAnecdote({
                 content: content.value,
                 author: author.value,
                 info: info.value,

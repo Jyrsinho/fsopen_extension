@@ -5,6 +5,7 @@ const useAnecdotes = () => {
     const [anecdotes, setAnecdotes] = useState([])
 
     useEffect(() => {
+        console.log('useEffect fetches anecdotes')
         const getAnecdotes = async () => {
             const anecdotes = await anecdoteService.getAll()
             setAnecdotes(anecdotes)
@@ -15,6 +16,7 @@ const useAnecdotes = () => {
     const addAnecdote = async (newAnecdote) => {
         const createdAnecdote = await anecdoteService.createNew(newAnecdote)
         const newAnecdotes = [...anecdotes, createdAnecdote]
+        console.log('addAnecdoteFunction - newAnecdotes after adding - ', newAnecdotes);
         setAnecdotes(newAnecdotes)
     }
 

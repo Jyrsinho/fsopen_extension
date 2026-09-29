@@ -1,11 +1,46 @@
 {
   "anecdotes": [
     {
-      "content": "jotain kontsaa",
-      "author": "kontsa kontsanen",
-      "info": "www.kontsa.fi",
+      "content": "uusi anekdootti",
+      "author": "Jyri Huhtala",
+      "info": "jyri.fi",
       "votes": 0,
-      "id": "v9ndtFHz1YE"
+      "id": "llbFlFUYwDs"
+    },
+    {
+      "content": "ihan uusi anekdootti",
+      "author": "kari karinen",
+      "info": "kari.fi",
+      "votes": 0,
+      "id": "kQ6iU2mSaUs"
+    },
+    {
+      "content": "ihan tosi uusi",
+      "author": "minä",
+      "info": "mina.fi",
+      "votes": 0,
+      "id": "hZL6XkN3PnY"
+    },
+    {
+      "content": "joku uusi viisaus",
+      "author": "viisas mies",
+      "info": "viisasmies.fi",
+      "votes": 0,
+      "id": "I5cjpDxO3g8"
+    },
+    {
+      "content": "ihan uusi anekdootti",
+      "author": "Jyrin anekdootti",
+      "info": "jyri.fi",
+      "votes": 0,
+      "id": "ZwWymP7xX2I"
+    },
+    {
+      "content": "vielä uudempi anekdootti",
+      "author": "jyri jyrinen",
+      "info": "jyri.fi",
+      "votes": 0,
+      "id": "BzNgsAVKYO4"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
