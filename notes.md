@@ -1,1 +1,1 @@
-Lienee validia testata että delete funktio servicessä tekee pyyntönsä oikeaan osoitteeseen iideen perusteella
+Github Actionissa on nyt joku ongelma serverin käynnistämisen kanssa. Lokaalisti e2e testit menevät läpi, mutta githubissa eivät. Todennäköinen syy on jossain playwright configuraatiossa.
