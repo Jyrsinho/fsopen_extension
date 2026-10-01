@@ -15,8 +15,9 @@ const AnecdoteList = () => {
             <ul>
                 {anecdotes.map(anecdote =>
                     <div key={anecdote.id} style={anecdoteDivStyle}>
-                        <li>{anecdote.content}</li>
-                        <button onClick={ () => deleteAnecdote(anecdote.id)}>remove</button>
+                        <li>{anecdote.content}
+                            <button onClick={ () => deleteAnecdote(anecdote.id)}>delete</button>
+                        </li>
                     </div>
                 )}
             </ul>

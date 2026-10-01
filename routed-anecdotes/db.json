@@ -41,6 +41,55 @@
       "info": "jyri.fi",
       "votes": 0,
       "id": "BzNgsAVKYO4"
+    },
+    {
+      "content": "an anecdote created by playwright 1790856707204",
+      "author": "Playwright",
+      "info": "https://playwright.dev",
+      "votes": 0,
+      "id": "PDTxI9k9QNI"
+    },
+    {
+      "content": "an anecdote to be deleted 1790856707430",
+      "author": "Playwright",
+      "info": "https://playwright.dev",
+      "votes": 0,
+      "id": "_uHyWERzEyc"
+    },
+    {
+      "content": "an anecdote to be deleted 1790856761458",
+      "author": "Playwright",
+      "info": "https://playwright.dev",
+      "votes": 0,
+      "id": "cW3uFRvxi50"
+    },
+    {
+      "content": "an anecdote created by playwright 1790856806298",
+      "author": "Playwright",
+      "info": "https://playwright.dev",
+      "votes": 0,
+      "id": "oKcwbHY13-E"
+    },
+    {
+      "content": "an anecdote to be deleted 1790856806540",
+      "author": "Playwright",
+      "info": "https://playwright.dev",
+      "votes": 0,
+      "id": "VcuR4m-EhkU"
+    },
+    {
+      "content": "an anecdote to be deleted 1790856825685",
+      "author": "Playwright",
+      "info": "https://playwright.dev",
+      "votes": 0,
+      "id": "IgkxwDwHTvI"
+    },
+    {
+      "content": "an anecdote created by playwright 1790856983196",
+      "author": "Playwright",
+      "info": "https://playwright.dev",
+      "votes": 0,
+      "id": "1QHxDyg8fiI"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
