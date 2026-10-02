@@ -33,7 +33,7 @@ describe('anecdoteService', () => {
             expect(result).toEqual(anecdotes)
 
         })
-        test('should throw an error when request fails', () => {
+        test('should throw an error when request fails',async () => {
             fetch.mockResolvedValue({
                 ok: false,
             })

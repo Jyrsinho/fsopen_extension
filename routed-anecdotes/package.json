@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "server": "json-server --port 3001 db.json",
     "server:test": "json-server --port 3002 db.json",
-    "start:test": "vite"
+    "start:test": "vite --mode test"
   },
   "dependencies": {
     "react": "^19.2.8",
