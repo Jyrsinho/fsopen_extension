@@ -35,7 +35,7 @@ describe("Login API", () => {
             assert.strictEqual(response.body.username, userFixtures.blogCreatorUser.username)
             assert(token)
         })
-        test.only('should fail when given nonexistent username', async () => {
+        test('should fail when given nonexistent username', async () => {
             const login = {
                 username: 'incorrect username',
                 password: userFixtures.blogCreatorUser.password

@@ -1,6 +1,4 @@
 const _ = require('lodash')
-const {hasToStringMethod} = require("fast-check");
-const {reduce} = require("lodash/collection");
 
 const totalLikes = (blogs) => {
     const countLikes = (prev, current) => {
@@ -56,8 +54,8 @@ const mostLikes = (blogs) => {
             likes: _.sumBy(authorBlogArray, 'likes')
         }
     })
-    
-    const mostLiked = _.maxBy(authorLikesSummed, (author) =>author.likes )
+
+    const mostLiked = _.maxBy(authorLikesSummed, (author) => author.likes )
 
     return {
         author: mostLiked.author,
