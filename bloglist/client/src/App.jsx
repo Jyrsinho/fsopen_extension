@@ -2,13 +2,14 @@ import { useEffect , useState } from 'react'
 import blogService from './services/blogs.js'
 import { LoginForm } from './components/LoginForm.jsx'
 import Blogs from './components/Blogs.jsx'
-import { Routes, Route, Link, useNavigate, useMatch } from 'react-router-dom'
+import { Routes, Route, useNavigate, useMatch } from 'react-router-dom'
 import loginService from './services/login.js'
 import Blog from './components/Blog.jsx'
 import { BlogForm } from './components/BlogForm.jsx'
 import { StatusMessage } from './components/StatusMessage.jsx'
 import { Container } from '@mui/material'
 import NavBar from './components/NavBar.jsx'
+import ErrorBoundary from './components/ErrorBoundary.jsx'
 
 const App = () => {
     const [blogs, setBlogs] = useState([])
@@ -151,20 +152,22 @@ const App = () => {
         <Container>
             <NavBar loggedUser={loggedUser} handleLogout={handleLogout} />
             <div>
-                <Routes>
-                    <Route path='/blogs/:id' element={
-                        <Blog blog={blog} loggedUser={loggedUser} addALike={addALike} removeBlog={removeBlog}/>
-                    }  />
-                    <Route path='/' element={
-                        <Blogs blogs={blogs} />
-                    } />
-                    <Route path='/login' element={
-                        <LoginForm loggedUser={loggedUser} handleLogin={handleLogin} handleLogout={handleLogout} />
-                    } />
-                    <Route path={'/create'} element={
-                        <BlogForm createBlog={createBlog} />
-                    } />
-                </Routes>
+                <ErrorBoundary>
+                    <Routes>
+                        <Route path='/blogs/:id' element={
+                            <Blog blog={blog} loggedUser={loggedUser} addALike={addALike} removeBlog={removeBlog}/>
+                        }  />
+                        <Route path='/' element={
+                            <Blogs blogs={blogs} />
+                        } />
+                        <Route path='/login' element={
+                            <LoginForm loggedUser={loggedUser} handleLogin={handleLogin} handleLogout={handleLogout} />
+                        } />
+                        <Route path={'/create'} element={
+                            <BlogForm createBlog={createBlog} />
+                        } />
+                    </Routes>
+                </ErrorBoundary>
             </div>
             <div>
                 <StatusMessage message={message} resetMessage={resetMessage} />
