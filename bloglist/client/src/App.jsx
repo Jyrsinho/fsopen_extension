@@ -10,6 +10,7 @@ import { StatusMessage } from './components/StatusMessage.jsx'
 import { Container } from '@mui/material'
 import NavBar from './components/NavBar.jsx'
 import ErrorBoundary from './components/ErrorBoundary.jsx'
+import PageNotFound from './components/PageNotFound.jsx'
 
 const App = () => {
     const [blogs, setBlogs] = useState([])
@@ -165,6 +166,9 @@ const App = () => {
                         } />
                         <Route path={'/create'} element={
                             <BlogForm createBlog={createBlog} />
+                        } />
+                        <Route path={'*'} element={
+                            <PageNotFound/>
                         } />
                     </Routes>
                 </ErrorBoundary>
