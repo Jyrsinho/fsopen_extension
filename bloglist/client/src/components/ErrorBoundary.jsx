@@ -9,15 +9,20 @@ class ErrorBoundary extends React.Component {
         }
     }
 
-    static getDerivedStateFromProps(error) {
-        return {
-            hasError: true,
-            error
-        }
+    static getDerivedStateFromError(error) {
+        return { hasError: true, error }
     }
 
     componentDidCatch(error, errorInfo) {
-        console.log('Errorboundary caught an error: ', error, errorInfo)
+        console.log('ErrorBoundary caught an error: ', error, errorInfo)
+    }
+
+    resetErrorBoundary = () => {
+        console.log('resetting error...')
+        this.setState({
+            hasError: false,
+            error: null
+        })
     }
 
     render() {
@@ -25,8 +30,13 @@ class ErrorBoundary extends React.Component {
             return (
                 <div>
                     <h2>Something went wrong...displaying ErrorBoundary</h2>
+                    <p>{this.state.error.message}</p>
+                    <button onClick={ this.resetErrorBoundary }>
+                        try again
+                    </button>
                 </div>
             )}
+        return (this.props.children)
     }
 }
 
