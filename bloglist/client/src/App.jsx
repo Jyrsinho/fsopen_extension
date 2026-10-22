@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import blogService from "./services/blogs.js";
 import { LoginForm } from "./components/LoginForm.jsx";
 import Blogs from "./components/Blogs.jsx";
-import { Routes, Route, useNavigate, useMatch } from "react-router-dom";
+import { Route, Routes, useMatch, useNavigate } from "react-router-dom";
 import loginService from "./services/login.js";
 import Blog from "./components/Blog.jsx";
 import { BlogForm } from "./components/BlogForm.jsx";
@@ -14,6 +14,7 @@ import PageNotFound from "./components/PageNotFound.jsx";
 import useNotification from "./stores/useNotification.js";
 import useBlogs from "./stores/useBlogs.js";
 import useLoggedInUser from "./stores/useLoggedInUser.js";
+import Users from "./Users.jsx";
 
 const App = () => {
   const { blogs, setBlogsToStore, addBlogToStore, removeBlogFromStore } =
@@ -65,7 +66,6 @@ const App = () => {
   const handleLogout = () => {
     console.log("handleLogOut");
     setLoggedUser(null);
-    localStorage.removeItem("loggedUser");
     localStorage.removeItem("loggedUser");
   };
 
@@ -175,6 +175,7 @@ const App = () => {
               path="/"
               element={<Blogs loggedUser={loggedUser} blogs={blogs} />}
             />
+            <Route path="users/" element={<Users />} />
             <Route
               path="/login"
               element={
