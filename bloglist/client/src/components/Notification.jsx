@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Alert } from "@mui/material";
 
-export function Notification({ message, resetMessage }) {
-  const textColor = message?.status === "success" ? "green" : "red";
+export function Notification({ notification, resetMessage }) {
+  const textColor = notification?.status === "success" ? "green" : "red";
 
   const style = {
     margin: "1em",
@@ -12,15 +12,15 @@ export function Notification({ message, resetMessage }) {
   useEffect(() => {
     setTimeout(() => {
       resetMessage();
-    }, 15000);
-  }, [message, resetMessage]);
+    }, 5000);
+  }, [notification, resetMessage]);
 
-  if (!message) return null;
+  if (!notification) return null;
 
   return (
     <div className={"status-message-container"}>
       <Alert data-testid="alert" sx={style}>
-        {message.message}
+        {notification.message}
       </Alert>
     </div>
   );

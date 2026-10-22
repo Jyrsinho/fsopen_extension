@@ -1,8 +1,8 @@
 import Blog from "./Blog.jsx";
 import { Link } from "react-router-dom";
 
-const Blogs = ({ blogs }) => {
-  if (!blogs) return null;
+const Blogs = ({ blogs, loggedUser }) => {
+  if (!blogs || !loggedUser) return null;
   //Lajitellaan suuruusjärjestykseen
   blogs.sort((a, b) => b.likes - a.likes);
 

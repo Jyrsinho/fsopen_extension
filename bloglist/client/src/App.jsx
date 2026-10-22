@@ -16,30 +16,37 @@ import useNotification from "./stores/useNotification.js";
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [loggedUser, setLoggedUser] = useState(null);
-  //TODO - this will be replaced by store
   const notification = useNotification((state) => state.notification);
   const navigate = useNavigate();
 
   const match = useMatch("/blogs/:id");
   const blog = match ? blogs.find((note) => note.id === match.params.id) : null;
 
+  console.log("notification", notification);
+  console.log("loggedUser", loggedUser);
+
+  const setNotification = useNotification((state) => state.setNotification);
+
   useEffect(() => {
+    console.log("running useEffect to fetch blogs");
     const fetchBlogs = async () => {
       try {
         const blogs = await blogService.getAll();
+        setNotification({
+          message: "successfully fetched blogs",
+          status: "success",
+        });
         setBlogs(blogs);
       } catch (error) {
         console.log(error);
-        /*
         setNotification({
           status: "error",
           message: error.message,
         });
-         */
       }
     };
     fetchBlogs();
-  }, []);
+  }, [setNotification, loggedUser]);
 
   useEffect(() => {
     console.log("fetching user from local storage...");
@@ -57,6 +64,7 @@ const App = () => {
     console.log("handleLogOut");
     setLoggedUser(null);
     localStorage.removeItem("loggedUser");
+    localStorage.removeItem("loggedUser");
   };
 
   const handleLogin = async (e, credentials) => {
@@ -67,20 +75,17 @@ const App = () => {
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
       blogService.setToken(user.token);
       setLoggedUser(user);
-      /*
       setNotification({
         status: "success",
         message: `${user.name} logged in`,
       });
-       */
       navigate("/");
     } catch (error) {
       console.log(error);
-      /*
       setNotification({
         status: "error",
         message: "wrong username or password",
-      });*/
+      });
     }
   };
 
@@ -93,19 +98,15 @@ const App = () => {
       };
       const newBlogs = [...blogs, newBlog];
       setBlogs(newBlogs);
-      /*
       setNotification({
         status: "success",
         message: `Added blog ${newBlog.title} by ${newBlog.author}`,
       });
-       */
     } catch (error) {
-      /*
       setNotification({
         status: "error",
         message: error.message,
       });
-       */
       console.log(error);
     }
     navigate("/");
@@ -123,12 +124,10 @@ const App = () => {
       });
       setBlogs(newBlogs);
     } catch (error) {
-      /*
       setNotification({
         status: "error",
         message: error.message,
       });
-       */
     }
   };
 
@@ -141,24 +140,20 @@ const App = () => {
       navigate("/");
       await blogService.deleteBlog(blogToRemove.id);
       setBlogs(blogs.filter((blog) => blog.id !== blogToRemove.id));
-      /*
       setNotification({
         status: "success",
         message: `Removed blog ${blogToRemove.title} by ${blogToRemove.author}`,
       });
-       */
     } catch (error) {
-      /*
       setNotification({
         status: "error",
         message: error.message,
       });
-       */
     }
   };
 
   const resetMessage = () => {
-    // setNotification(null);
+    setNotification(null);
   };
 
   return (
@@ -178,7 +173,10 @@ const App = () => {
                 />
               }
             />
-            <Route path="/" element={<Blogs blogs={blogs} />} />
+            <Route
+              path="/"
+              element={<Blogs loggedUser={loggedUser} blogs={blogs} />}
+            />
             <Route
               path="/login"
               element={
@@ -198,7 +196,7 @@ const App = () => {
         </ErrorBoundary>
       </div>
       <div>
-        <Notification message={notification} resetMessage={resetMessage} />
+        <Notification notification={notification} resetMessage={resetMessage} />
       </div>
     </Container>
   );
