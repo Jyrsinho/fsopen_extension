@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import blogService from "./services/blogs.js";
 import { LoginForm } from "./components/LoginForm.jsx";
 import Blogs from "./components/Blogs.jsx";
@@ -13,6 +13,7 @@ import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import PageNotFound from "./components/PageNotFound.jsx";
 import useNotification from "./stores/useNotification.js";
 import useBlogs from "./stores/useBlogs.js";
+import useLoggedInUser from "./stores/useLoggedInUser.js";
 
 const App = () => {
   const { blogs, setBlogsToStore, addBlogToStore, removeBlogFromStore } =
@@ -20,11 +21,13 @@ const App = () => {
   const { notification, setNotification, resetNotification } = useNotification(
     (state) => state,
   );
-  const [loggedUser, setLoggedUser] = useState(null);
+  const { loggedUser, setLoggedUser } = useLoggedInUser();
   const navigate = useNavigate();
 
   const match = useMatch("/blogs/:id");
   const blog = match ? blogs.find((note) => note.id === match.params.id) : null;
+
+  console.log("user Logged in: ", loggedUser);
 
   useEffect(() => {
     console.log("running useEffect to fetch blogs");
@@ -57,7 +60,7 @@ const App = () => {
     } else {
       console.log("user not found from localStorage");
     }
-  }, []);
+  }, [setLoggedUser]);
 
   const handleLogout = () => {
     console.log("handleLogOut");
