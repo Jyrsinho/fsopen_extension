@@ -1,37 +1,37 @@
 li {
-    list-style: none;
+  list-style: none;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    width: 75%;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
 }
 
 .status-message-container {
-    font-size: 1.5em;
-    background-color: lightgrey;
+  font-size: 1.5em;
+  background-color: lightgrey;
 }
 
 .error-message {
-    color: red;
+  color: red;
 }
 
 .success-message {
-    color: green;
+  color: green;
 }
 
 .blogContainer {
-    border: 1px solid black;
-    margin-bottom: 0.1em
+  border: 1px solid black;
+  margin-bottom: 0.1em;
 }
 
 .form-input {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 button {
-    margin-left: 0.5em;
+  margin-left: 0.5em;
 }
