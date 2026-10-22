@@ -15,7 +15,8 @@ import useNotification from "./stores/useNotification.js";
 import useBlogs from "./stores/useBlogs.js";
 
 const App = () => {
-  const { blogs, setBlogs, addABlog } = useBlogs((state) => state);
+  const { blogs, setBlogsToStore, addBlogToStore, removeBlogFromStore } =
+    useBlogs((state) => state);
   const { notification, setNotification, resetNotification } = useNotification(
     (state) => state,
   );
@@ -34,7 +35,7 @@ const App = () => {
           message: "successfully fetched blogs",
           status: "success",
         });
-        setBlogs(blogs);
+        setBlogsToStore(blogs);
       } catch (error) {
         console.log(error);
         setNotification({
@@ -44,7 +45,7 @@ const App = () => {
       }
     };
     fetchBlogs();
-  }, [setNotification, loggedUser, setBlogs]);
+  }, [setNotification, loggedUser, setBlogsToStore]);
 
   useEffect(() => {
     console.log("fetching user from local storage...");
@@ -94,7 +95,7 @@ const App = () => {
         ...response,
         user: loggedUser,
       };
-      addABlog(newBlog);
+      addBlogToStore(newBlog);
       setNotification({
         status: "success",
         message: `Added blog ${newBlog.title} by ${newBlog.author}`,
@@ -119,7 +120,7 @@ const App = () => {
       const newBlogs = blogs.map((blog) => {
         return blog.id === likedBlog.id ? editedBlog : blog;
       });
-      setBlogs(newBlogs);
+      setBlogsToStore(newBlogs);
     } catch (error) {
       setNotification({
         status: "error",
@@ -136,7 +137,8 @@ const App = () => {
     try {
       navigate("/");
       await blogService.deleteBlog(blogToRemove.id);
-      setBlogs(blogs.filter((blog) => blog.id !== blogToRemove.id));
+      removeBlogFromStore(blogToRemove.id);
+      // setBlogs(blogs.filter((blog) => blog.id !== blogToRemove.id));
       setNotification({
         status: "success",
         message: `Removed blog ${blogToRemove.title} by ${blogToRemove.author}`,
