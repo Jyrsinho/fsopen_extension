@@ -16,7 +16,9 @@ import useBlogs from "./stores/useBlogs.js";
 
 const App = () => {
   const { blogs, setBlogs, addABlog } = useBlogs((state) => state);
-  const { notification, setNotification } = useNotification((state) => state);
+  const { notification, setNotification, resetNotification } = useNotification(
+    (state) => state,
+  );
   const [loggedUser, setLoggedUser] = useState(null);
   const navigate = useNavigate();
 
@@ -147,10 +149,6 @@ const App = () => {
     }
   };
 
-  const resetMessage = () => {
-    setNotification(null);
-  };
-
   return (
     <Container>
       <NavBar loggedUser={loggedUser} handleLogout={handleLogout} />
@@ -191,7 +189,10 @@ const App = () => {
         </ErrorBoundary>
       </div>
       <div>
-        <Notification notification={notification} resetMessage={resetMessage} />
+        <Notification
+          notification={notification}
+          resetNotification={resetNotification}
+        />
       </div>
     </Container>
   );

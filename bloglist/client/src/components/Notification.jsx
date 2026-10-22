@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Alert } from "@mui/material";
 
-export function Notification({ notification, resetMessage }) {
+export function Notification({ notification, resetNotification }) {
   const textColor = notification?.status === "success" ? "green" : "red";
 
   const style = {
@@ -10,10 +10,13 @@ export function Notification({ notification, resetMessage }) {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      resetMessage();
+    const timeOutID = setTimeout(() => {
+      resetNotification();
     }, 5000);
-  }, [notification, resetMessage]);
+    return () => {
+      clearTimeout(timeOutID);
+    };
+  }, [notification, resetNotification]);
 
   if (!notification) return null;
 

@@ -9,6 +9,9 @@ const useNotification = create((set) => ({
     console.log("setting message", notification);
     set({ notification });
   },
+  resetNotification: () => {
+    set({ notification: null });
+  },
 }));
 
 export default useNotification;

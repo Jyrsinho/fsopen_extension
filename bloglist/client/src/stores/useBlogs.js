@@ -6,14 +6,4 @@ const useBlogs = create((set) => ({
   addABlog: (newBlog) => set((state) => ({ blogs: [...state.blogs, newBlog] })),
 }));
 
-/*
-const useBear = create((set) => ({
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
-  updateBears: (newBears) => set({ bears: newBears }),
-}));
-
- */
-
 export default useBlogs;
