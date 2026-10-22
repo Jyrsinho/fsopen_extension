@@ -9,9 +9,6 @@ const userSchema = mongoose.Schema({
   },
   name: String,
   passwordHash: String,
-  blogs: {
-    type: Array,
-  },
 });
 
 userSchema.set("toJSON", {
