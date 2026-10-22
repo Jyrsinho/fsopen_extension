@@ -1,1 +1,1 @@
-Github Actionissa on nyt joku ongelma serverin käynnistämisen kanssa. Lokaalisti e2e testit menevät läpi, mutta githubissa eivät. Todennäköinen syy on jossain playwright configuraatiossa.
+Täytyy selvittää MongoDB aggregointi. Miten saadaan laskettua käyttäjien lisäämien blogien määrä suoraan blogeista
