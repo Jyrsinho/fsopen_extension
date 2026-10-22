@@ -1,5 +1,15 @@
+// noinspection JSIgnoredPromiseFromCall
+
 import { useEffect, useState } from "react";
-import { Paper, Table, TableContainer, TableHead } from "@mui/material";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import userService from "../src/services/users.js";
 
 const Users = () => {
@@ -19,17 +29,29 @@ const Users = () => {
     fetchUsers();
   }, []);
 
+  if (!users.length) return null;
+
   return (
     <>
-      <div>
-        {users.map((user) => (
-          <p>{user.name}</p>
-        ))}
-      </div>
-
+      <h2>Users</h2>
       <TableContainer component={Paper}>
         <Table>
-          <TableHead></TableHead>
+          <TableHead>
+            <TableRow>
+              <TableCell>NAME</TableCell>
+              <TableCell>USERNAME</TableCell>
+              <TableCell>BLOGS CREATED</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users.map((user) => (
+              <TableRow key={user.id}>
+                <TableCell>{user.name}</TableCell>
+                <TableCell>{user.username}</TableCell>
+                <TableCell>0</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
     </>

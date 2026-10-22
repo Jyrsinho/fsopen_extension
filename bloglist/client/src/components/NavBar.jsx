@@ -33,7 +33,7 @@ const NavBar = ({ loggedUser, handleLogout }) => {
         <Button color="inherit" component={Link} to="/create" sx={style}>
           new blog
         </Button>
-        <Button color={"inherit"} component={Link} to="/users" sx={style}>
+        <Button color="inherit" component={Link} to="/users" sx={style}>
           users
         </Button>
       </Toolbar>
