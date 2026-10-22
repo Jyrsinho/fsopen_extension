@@ -1,7 +1,10 @@
 import { create } from "zustand";
 
 const useNotification = create(() => ({
-  notification: "default notification from zustand",
+  notification: {
+    message: "default notification from zustand",
+    status: "success",
+  },
 }));
 
 export default useNotification;

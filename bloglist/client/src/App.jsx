@@ -11,12 +11,13 @@ import { Container } from "@mui/material";
 import NavBar from "./components/NavBar.jsx";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import PageNotFound from "./components/PageNotFound.jsx";
+import useNotification from "./stores/useNotification.js";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [loggedUser, setLoggedUser] = useState(null);
   //TODO - this will be replaced by store
-  const [notification, setNotification] = useState(null);
+  const notification = useNotification((state) => state.notification);
   const navigate = useNavigate();
 
   const match = useMatch("/blogs/:id");
@@ -29,10 +30,12 @@ const App = () => {
         setBlogs(blogs);
       } catch (error) {
         console.log(error);
+        /*
         setNotification({
           status: "error",
           message: error.message,
         });
+         */
       }
     };
     fetchBlogs();
@@ -64,17 +67,20 @@ const App = () => {
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
       blogService.setToken(user.token);
       setLoggedUser(user);
+      /*
       setNotification({
         status: "success",
         message: `${user.name} logged in`,
       });
+       */
       navigate("/");
     } catch (error) {
       console.log(error);
+      /*
       setNotification({
         status: "error",
         message: "wrong username or password",
-      });
+      });*/
     }
   };
 
@@ -87,15 +93,19 @@ const App = () => {
       };
       const newBlogs = [...blogs, newBlog];
       setBlogs(newBlogs);
+      /*
       setNotification({
         status: "success",
         message: `Added blog ${newBlog.title} by ${newBlog.author}`,
       });
+       */
     } catch (error) {
+      /*
       setNotification({
         status: "error",
         message: error.message,
       });
+       */
       console.log(error);
     }
     navigate("/");
@@ -113,10 +123,12 @@ const App = () => {
       });
       setBlogs(newBlogs);
     } catch (error) {
+      /*
       setNotification({
         status: "error",
         message: error.message,
       });
+       */
     }
   };
 
@@ -129,20 +141,24 @@ const App = () => {
       navigate("/");
       await blogService.deleteBlog(blogToRemove.id);
       setBlogs(blogs.filter((blog) => blog.id !== blogToRemove.id));
+      /*
       setNotification({
         status: "success",
         message: `Removed blog ${blogToRemove.title} by ${blogToRemove.author}`,
       });
+       */
     } catch (error) {
+      /*
       setNotification({
         status: "error",
         message: error.message,
       });
+       */
     }
   };
 
   const resetMessage = () => {
-    setNotification(null);
+    // setNotification(null);
   };
 
   return (
