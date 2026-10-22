@@ -15,11 +15,9 @@ import useNotification from "./stores/useNotification.js";
 import useBlogs from "./stores/useBlogs.js";
 
 const App = () => {
-  const blogs = useBlogs((state) => state.blogs);
-  const setBlogs = useBlogs((state) => state.setBlogs);
+  const { blogs, setBlogs, addABlog } = useBlogs((state) => state);
+  const { notification, setNotification } = useNotification((state) => state);
   const [loggedUser, setLoggedUser] = useState(null);
-  const notification = useNotification((state) => state.notification);
-  const setNotification = useNotification((state) => state.setNotification);
   const navigate = useNavigate();
 
   const match = useMatch("/blogs/:id");
@@ -94,8 +92,7 @@ const App = () => {
         ...response,
         user: loggedUser,
       };
-      const newBlogs = [...blogs, newBlog];
-      setBlogs(newBlogs);
+      addABlog(newBlog);
       setNotification({
         status: "success",
         message: `Added blog ${newBlog.title} by ${newBlog.author}`,
