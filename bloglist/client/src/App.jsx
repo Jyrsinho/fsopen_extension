@@ -12,20 +12,18 @@ import NavBar from "./components/NavBar.jsx";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import PageNotFound from "./components/PageNotFound.jsx";
 import useNotification from "./stores/useNotification.js";
+import useBlogs from "./stores/useBlogs.js";
 
 const App = () => {
-  const [blogs, setBlogs] = useState([]);
+  const blogs = useBlogs((state) => state.blogs);
+  const setBlogs = useBlogs((state) => state.setBlogs);
   const [loggedUser, setLoggedUser] = useState(null);
   const notification = useNotification((state) => state.notification);
+  const setNotification = useNotification((state) => state.setNotification);
   const navigate = useNavigate();
 
   const match = useMatch("/blogs/:id");
   const blog = match ? blogs.find((note) => note.id === match.params.id) : null;
-
-  console.log("notification", notification);
-  console.log("loggedUser", loggedUser);
-
-  const setNotification = useNotification((state) => state.setNotification);
 
   useEffect(() => {
     console.log("running useEffect to fetch blogs");
@@ -46,7 +44,7 @@ const App = () => {
       }
     };
     fetchBlogs();
-  }, [setNotification, loggedUser]);
+  }, [setNotification, loggedUser, setBlogs]);
 
   useEffect(() => {
     console.log("fetching user from local storage...");
