@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Alert } from "@mui/material";
 
-export function StatusMessage({ message, resetMessage }) {
+export function Notification({ message, resetMessage }) {
   const textColor = message?.status === "success" ? "green" : "red";
 
   const style = {

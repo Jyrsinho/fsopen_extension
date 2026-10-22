@@ -6,7 +6,7 @@ import { Routes, Route, useNavigate, useMatch } from "react-router-dom";
 import loginService from "./services/login.js";
 import Blog from "./components/Blog.jsx";
 import { BlogForm } from "./components/BlogForm.jsx";
-import { StatusMessage } from "./components/StatusMessage.jsx";
+import { Notification } from "./components/Notification.jsx";
 import { Container } from "@mui/material";
 import NavBar from "./components/NavBar.jsx";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
@@ -15,7 +15,8 @@ import PageNotFound from "./components/PageNotFound.jsx";
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [loggedUser, setLoggedUser] = useState(null);
-  const [message, setMessage] = useState(null);
+  //TODO - this will be replaced by store
+  const [notification, setNotification] = useState(null);
   const navigate = useNavigate();
 
   const match = useMatch("/blogs/:id");
@@ -28,7 +29,7 @@ const App = () => {
         setBlogs(blogs);
       } catch (error) {
         console.log(error);
-        setMessage({
+        setNotification({
           status: "error",
           message: error.message,
         });
@@ -63,14 +64,14 @@ const App = () => {
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
       blogService.setToken(user.token);
       setLoggedUser(user);
-      setMessage({
+      setNotification({
         status: "success",
         message: `${user.name} logged in`,
       });
       navigate("/");
     } catch (error) {
       console.log(error);
-      setMessage({
+      setNotification({
         status: "error",
         message: "wrong username or password",
       });
@@ -86,12 +87,12 @@ const App = () => {
       };
       const newBlogs = [...blogs, newBlog];
       setBlogs(newBlogs);
-      setMessage({
+      setNotification({
         status: "success",
         message: `Added blog ${newBlog.title} by ${newBlog.author}`,
       });
     } catch (error) {
-      setMessage({
+      setNotification({
         status: "error",
         message: error.message,
       });
@@ -112,7 +113,7 @@ const App = () => {
       });
       setBlogs(newBlogs);
     } catch (error) {
-      setMessage({
+      setNotification({
         status: "error",
         message: error.message,
       });
@@ -128,12 +129,12 @@ const App = () => {
       navigate("/");
       await blogService.deleteBlog(blogToRemove.id);
       setBlogs(blogs.filter((blog) => blog.id !== blogToRemove.id));
-      setMessage({
+      setNotification({
         status: "success",
         message: `Removed blog ${blogToRemove.title} by ${blogToRemove.author}`,
       });
     } catch (error) {
-      setMessage({
+      setNotification({
         status: "error",
         message: error.message,
       });
@@ -141,7 +142,7 @@ const App = () => {
   };
 
   const resetMessage = () => {
-    setMessage(null);
+    setNotification(null);
   };
 
   return (
@@ -181,7 +182,7 @@ const App = () => {
         </ErrorBoundary>
       </div>
       <div>
-        <StatusMessage message={message} resetMessage={resetMessage} />
+        <Notification message={notification} resetMessage={resetMessage} />
       </div>
     </Container>
   );
