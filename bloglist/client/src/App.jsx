@@ -31,7 +31,6 @@ const App = () => {
   console.log("user Logged in: ", loggedUser);
 
   useEffect(() => {
-    console.log("running useEffect to fetch blogs");
     const fetchBlogs = async () => {
       try {
         const blogs = await blogService.getAll();

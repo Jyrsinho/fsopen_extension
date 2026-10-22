@@ -14,6 +14,16 @@ Content-Type: application/json
   "password": "salasana123"
 }
 
+### POST second user
+POST {{baseURL}}/users
+Content-Type: application/json
+
+{
+  "username": "testUser",
+  "name": "Test User",
+  "password": "salasana123"
+}
+
 
 ### POST login
 POST {{baseURL}}/login

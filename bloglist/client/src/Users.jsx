@@ -54,7 +54,7 @@ const Users = () => {
               <TableRow key={user.id}>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.username}</TableCell>
-                <TableCell>0</TableCell>
+                <TableCell>{user.blogs.length}</TableCell>
               </TableRow>
             ))}
           </TableBody>
