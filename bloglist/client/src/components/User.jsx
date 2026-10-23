@@ -1,8 +1,7 @@
-export function User({ loggedUser, onLogout }) {
+export function User() {
   return (
     <div>
-      <p>{loggedUser.name} logged in</p>
-      <button onClick={onLogout}>logout</button>
+        <p>This where we display all the info of users</p>
     </div>
   );
 }

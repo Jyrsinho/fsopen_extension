@@ -57,7 +57,7 @@ const Users = () => {
                     <TableBody>
                         {users.map((user) => (
                             <TableRow key={user.id}>
-                                <TableCell>{user.name}</TableCell>
+                                <TableCell><a href={`localhost5173/users${user.id}`}>{user.name}</a></TableCell>
                                 <TableCell>{user.username}</TableCell>
                                 <TableCell>{user.blogs.length}</TableCell>
                             </TableRow>
