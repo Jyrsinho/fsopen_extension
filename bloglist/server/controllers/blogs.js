@@ -31,7 +31,6 @@ blogsRouter.post('/', async (request, response) => {
     })
     const savedBlog = await blog.save()
     user.update
-    //TODO - täällä voisi myös periaatteessa lisätä uuden blogin viitteeksi käyttäjän blogeihin
     response.status(201).json(savedBlog)
 })
 
