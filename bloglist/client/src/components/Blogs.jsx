@@ -7,8 +7,6 @@ const Blogs = ({ blogs, loggedUser }) => {
   const filteredBlogs = blogs.filter(
     (blog) => blog.user.username === loggedUser.username,
   );
-  //Lajitellaan suuruusjärjestykseen
-  filteredBlogs.sort((a, b) => b.likes - a.likes);
 
   return (
     <div>

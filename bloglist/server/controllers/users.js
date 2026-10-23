@@ -9,11 +9,7 @@ const bcrypt = require("bcrypt");
 3.
  */
 usersRouter.get("/", async (request, response) => {
-  const users = await User.aggregate([
-    {
-      $lookup: {},
-    },
-  ]);
+  const users = await User.find({})
   response.json(users);
 });
 
