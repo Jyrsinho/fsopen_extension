@@ -15,6 +15,11 @@ import userService from "../src/services/users.js";
 const Users = () => {
     const [users, setUsers] = useState([]);
     console.log("Users -", users);
+    users.sort((a, b) => {
+        if (a.blogs.length < b.blogs.length) return 1;
+        if (a.blogs.length > b.blogs.length) return -1;
+        return 0;
+    });
 
     useEffect(() => {
         console.log("running useEffect to fetch users");
