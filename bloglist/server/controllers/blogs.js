@@ -5,7 +5,6 @@ const User = require('../models/user')
 
 blogsRouter.get('/', async (request, response) => {
     const blogs = await Blog.find({}).sort({likes: -1}).populate('user', { username: 1, name: 1 })
-    console.log('blogsrouter', blogs)
     response.status(200).json(blogs)
 })
 
@@ -16,11 +15,8 @@ blogsRouter.get('/:id', async (request, response) => {
 })
 
 blogsRouter.post('/', async (request, response) => {
-    console.log('blogsRouter')
     const body = request.body
-    console.log('body', body)
     const userID = request.user
-    console.log('userID', userID)
     const user = await User.findById(userID)
     if (!user) {
         return response.status(401).json({ message: 'userid missing or not valid ' })
@@ -34,6 +30,8 @@ blogsRouter.post('/', async (request, response) => {
         user: user._id,
     })
     const savedBlog = await blog.save()
+    user.update
+    //TODO - täällä voisi myös periaatteessa lisätä uuden blogin viitteeksi käyttäjän blogeihin
     response.status(201).json(savedBlog)
 })
 
