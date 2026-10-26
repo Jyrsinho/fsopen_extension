@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 const Blog = ({ blog, loggedUser }) => {
   const addedByUser = loggedUser?.username === blog?.user.username;
   const { setNotification } = useNotification((state) => state);
-  const { blogs } = useBlogs();
+  const blogs = useBlogs();
   const { setBlogsToStore, removeBlogFromStore } = useBlogsControls();
-  const { navigate } = useNavigate();
+  const navigate = useNavigate();
 
   const addALike = async (likedBlog) => {
     const blogToSave = {

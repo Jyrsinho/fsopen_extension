@@ -6,6 +6,8 @@ export function BlogForm({ createBlog }) {
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
 
+  // TODO korjaa TextFieldit useTextField hookilla
+
   const onSubmit = (e) => {
     e.preventDefault();
     createBlog({

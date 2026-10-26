@@ -18,7 +18,7 @@ import Users from "./Users.jsx";
 import User from "./components/User.jsx";
 
 const App = () => {
-  const { blogs } = useBlogs();
+  const blogs = useBlogs();
   const { addBlogToStore } = useBlogsControls();
   const { notification, setNotification, resetNotification } = useNotification(
     (state) => state,

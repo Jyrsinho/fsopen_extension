@@ -7,9 +7,9 @@ const useBlogsStore = create((set) => ({
     addBlogToStore: (newBlog) =>
       set((state) => ({ blogs: [...state.blogs, newBlog] })),
     removeBlogFromStore: (idToRemove) => {
-      set((state) => {
-        state.blogs.filter((blog) => blog.id !== idToRemove);
-      });
+      set((state) => ({
+        blogs: state.blogs.filter((blog) => blog.id !== idToRemove),
+      }));
     },
   },
 }));
