@@ -4,8 +4,6 @@ import blogService from "../services/blogs.js";
 import useNotification from "../stores/useNotification.js";
 import { useBlogs, useBlogsControls } from "../stores/useBlogsStore.js";
 
-// TODO - Blogien filtteröinnin voisi tehdä jo heti databasessa
-
 const Blogs = ({ loggedUser }) => {
   const { setNotification } = useNotification((state) => state);
   const blogs = useBlogs();

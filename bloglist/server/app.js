@@ -25,17 +25,17 @@ mongoose
 app.use(express.json());
 app.use(tokenExtractor);
 
+if (process.env.NODE_ENV === "development") {
+  app.use(requestLogger);
+  app.use("/api/testing", testingRouter);
+}
+
 app.get("/api/ping", (req, res) => {
   res.json({ message: "pong", time: new Date().toISOString() });
 });
 app.use("/api/blogs", middleware.userExtractor, blogsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
-
-if (process.env.NODE_ENV === "development") {
-  app.use(requestLogger);
-  app.use("/api/testing", testingRouter);
-}
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
