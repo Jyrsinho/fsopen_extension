@@ -1,8 +1,37 @@
-import Blog from "./Blog.jsx";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import blogService from "../services/blogs.js";
+import useNotification from "../stores/useNotification.js";
+import useBlogs from "../stores/useBlogs.js";
 
-const Blogs = ({ blogs, loggedUser }) => {
-  if (!blogs || !loggedUser) return null;
+//TODO - blogs hakee kaikki blogit
+
+const Blogs = ({ loggedUser }) => {
+  const { setNotification } = useNotification();
+  const { blogs, setBlogsToStore } = useBlogs((state) => state);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const blogs = await blogService.getAll();
+        setNotification({
+          message: "successfully fetched blogs",
+          status: "success",
+        });
+        setBlogsToStore(blogs);
+      } catch (error) {
+        console.log(error);
+        setNotification({
+          status: "error",
+          message: error.message,
+        });
+      }
+    };
+    fetchBlogs();
+  }, [setNotification, loggedUser, setBlogsToStore]);
+
+  if (!loggedUser) return null;
+
   // näytetään vain käyttäjän itse lisäämät blogit
   const filteredBlogs = blogs.filter(
     (blog) => blog.user.username === loggedUser.username,

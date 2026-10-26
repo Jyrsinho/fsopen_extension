@@ -1,5 +1,4 @@
 import { Button, ButtonGroup, Card } from "@mui/material";
-import { Link } from "react-router-dom";
 
 const Blog = ({ blog, addALike, removeBlog, loggedUser }) => {
   const addedByUser = loggedUser?.username === blog?.user.username;
@@ -15,8 +14,9 @@ const Blog = ({ blog, addALike, removeBlog, loggedUser }) => {
           </h2>
         </li>
         <li>
-          {" "}
-          <Link to={blog.url}>{blog.url}</Link>
+          <a onClick={() => console.log(blog.url)} href={`https://${blog.url}`}>
+            {blog.url}
+          </a>
         </li>
         <li>Added by {blog.user.name}</li>
         <li data-testid={"likes"}> likes: {blog.likes}</li>
