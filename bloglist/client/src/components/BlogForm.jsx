@@ -7,9 +7,9 @@ import useNotification from "../stores/useNotification.js";
 import useField from "../hooks/useField.js";
 
 export function BlogForm() {
-  const title = useField("text");
-  const author = useField("text");
-  const url = useField("text");
+  const [title, titleReset] = useField("text", "normal", "title");
+  const [author, authorReset] = useField("text", "normal", "author");
+  const [url, urlReset] = useField("text", "normal", "url");
   const navigate = useNavigate();
   const { addBlogToStore } = useBlogsControls();
   const loggedUser = useUser();
@@ -44,32 +44,17 @@ export function BlogForm() {
       author: author.value,
       url: url.value,
     });
-    title.reset();
-    author.reset();
-    url.reset();
+    titleReset();
+    authorReset();
+    urlReset();
   };
 
   return (
     <form className="blog-form" onSubmit={(e) => onSubmit(e)}>
       <h2>create new</h2>
-      <TextField
-        margin={"normal"}
-        label={"title"}
-        onChange={(e) => title.onChange(e)}
-        value={title.value}
-      />
-      <TextField
-        margin={"normal"}
-        label={"author"}
-        onChange={(e) => author.onChange(e)}
-        value={author.value}
-      />
-      <TextField
-        margin={"normal"}
-        label={"url"}
-        onChange={(e) => url.onChange(e)}
-        value={url.value}
-      />
+      <TextField {...title} />
+      <TextField {...author} />
+      <TextField {...url} />
       <Button type={"submit"}>save</Button>
     </form>
   );
