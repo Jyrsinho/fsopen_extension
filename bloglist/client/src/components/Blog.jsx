@@ -1,7 +1,55 @@
 import { Button, ButtonGroup, Card } from "@mui/material";
+import blogService from "../services/blogs.js";
+import useNotification from "../stores/useNotification.js";
+import { useBlogs, useBlogsControls } from "../stores/useBlogsStore.js";
+import { useNavigate } from "react-router-dom";
 
-const Blog = ({ blog, addALike, removeBlog, loggedUser }) => {
+const Blog = ({ blog, loggedUser }) => {
   const addedByUser = loggedUser?.username === blog?.user.username;
+  const { setNotification } = useNotification((state) => state);
+  const { blogs } = useBlogs();
+  const { setBlogsToStore, removeBlogFromStore } = useBlogsControls();
+  const { navigate } = useNavigate();
+
+  const addALike = async (likedBlog) => {
+    const blogToSave = {
+      ...likedBlog,
+      likes: likedBlog.likes + 1,
+    };
+    try {
+      const editedBlog = await blogService.put(blogToSave, likedBlog.id);
+      const newBlogs = blogs.map((blog) => {
+        return blog.id === likedBlog.id ? editedBlog : blog;
+      });
+      setBlogsToStore(newBlogs);
+    } catch (error) {
+      setNotification({
+        status: "error",
+        message: error.message,
+      });
+    }
+  };
+
+  const removeBlog = async (blogToRemove) => {
+    const confirm = window.confirm(
+      `Are you sure you want to remove ${blogToRemove.title}?`,
+    );
+    if (!confirm) return;
+    try {
+      navigate("/");
+      await blogService.deleteBlog(blogToRemove.id);
+      removeBlogFromStore(blogToRemove.id);
+      setNotification({
+        status: "success",
+        message: `Removed blog ${blogToRemove.title} by ${blogToRemove.author}`,
+      });
+    } catch (error) {
+      setNotification({
+        status: "error",
+        message: error.message,
+      });
+    }
+  };
 
   if (!blog) return null;
 

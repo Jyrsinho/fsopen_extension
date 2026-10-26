@@ -12,14 +12,14 @@ import NavBar from "./components/NavBar.jsx";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import PageNotFound from "./components/PageNotFound.jsx";
 import useNotification from "./stores/useNotification.js";
-import useBlogs from "./stores/useBlogs.js";
+import { useBlogs, useBlogsControls } from "./stores/useBlogsStore.js";
 import useLoggedInUser from "./stores/useLoggedInUser.js";
 import Users from "./Users.jsx";
 import User from "./components/User.jsx";
 
 const App = () => {
-  const { blogs, setBlogsToStore, addBlogToStore, removeBlogFromStore } =
-    useBlogs((state) => state);
+  const { blogs } = useBlogs();
+  const { addBlogToStore } = useBlogsControls();
   const { notification, setNotification, resetNotification } = useNotification(
     (state) => state,
   );
@@ -93,47 +93,6 @@ const App = () => {
     navigate("/");
   };
 
-  const addALike = async (likedBlog) => {
-    const blogToSave = {
-      ...likedBlog,
-      likes: likedBlog.likes + 1,
-    };
-    try {
-      const editedBlog = await blogService.put(blogToSave, likedBlog.id);
-      const newBlogs = blogs.map((blog) => {
-        return blog.id === likedBlog.id ? editedBlog : blog;
-      });
-      setBlogsToStore(newBlogs);
-    } catch (error) {
-      setNotification({
-        status: "error",
-        message: error.message,
-      });
-    }
-  };
-
-  const removeBlog = async (blogToRemove) => {
-    const confirm = window.confirm(
-      `Are you sure you want to remove ${blogToRemove.title}?`,
-    );
-    if (!confirm) return;
-    try {
-      navigate("/");
-      await blogService.deleteBlog(blogToRemove.id);
-      removeBlogFromStore(blogToRemove.id);
-      // setBlogs(blogs.filter((blog) => blog.id !== blogToRemove.id));
-      setNotification({
-        status: "success",
-        message: `Removed blog ${blogToRemove.title} by ${blogToRemove.author}`,
-      });
-    } catch (error) {
-      setNotification({
-        status: "error",
-        message: error.message,
-      });
-    }
-  };
-
   return (
     <Container>
       <NavBar loggedUser={loggedUser} handleLogout={handleLogout} />
@@ -142,14 +101,7 @@ const App = () => {
           <Routes>
             <Route
               path="/blogs/:id"
-              element={
-                <Blog
-                  blog={blog}
-                  loggedUser={loggedUser}
-                  addALike={addALike}
-                  removeBlog={removeBlog}
-                />
-              }
+              element={<Blog blog={blog} loggedUser={loggedUser} />}
             />
             <Route path="/users/:id" element={<User />} />
             <Route path="/" element={<Blogs loggedUser={loggedUser} />} />

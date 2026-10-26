@@ -2,23 +2,27 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import blogService from "../services/blogs.js";
 import useNotification from "../stores/useNotification.js";
-import useBlogs from "../stores/useBlogs.js";
+import { useBlogs, useBlogsControls } from "../stores/useBlogsStore.js";
 
-//TODO - blogs hakee kaikki blogit
+// TODO - Blogien filtteröinnin voisi tehdä jo heti databasessa
 
 const Blogs = ({ loggedUser }) => {
-  const { setNotification } = useNotification();
-  const { blogs, setBlogsToStore } = useBlogs((state) => state);
+  const { setNotification } = useNotification((state) => state);
+  const blogs = useBlogs();
+  const { setBlogsToStore } = useBlogsControls();
+
+  console.log("Blogs - ", blogs);
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const blogs = await blogService.getAll();
+        const fetchedBlogs = await blogService.getAll();
+        console.log("fetchedBlogs : ", fetchedBlogs);
         setNotification({
           message: "successfully fetched blogs",
           status: "success",
         });
-        setBlogsToStore(blogs);
+        setBlogsToStore(fetchedBlogs);
       } catch (error) {
         console.log(error);
         setNotification({
@@ -30,18 +34,13 @@ const Blogs = ({ loggedUser }) => {
     fetchBlogs();
   }, [setNotification, loggedUser, setBlogsToStore]);
 
-  if (!loggedUser) return null;
-
-  // näytetään vain käyttäjän itse lisäämät blogit
-  const filteredBlogs = blogs.filter(
-    (blog) => blog.user.username === loggedUser.username,
-  );
+  if (!loggedUser || !blogs) return null;
 
   return (
     <div>
       <h3>blogs:</h3>
       <ul>
-        {filteredBlogs.map((blog) => {
+        {blogs.map((blog) => {
           return (
             <li key={blog.id} className="blog-link">
               <Link
