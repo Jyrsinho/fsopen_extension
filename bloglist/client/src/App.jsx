@@ -12,18 +12,18 @@ import NavBar from "./components/NavBar.jsx";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import PageNotFound from "./components/PageNotFound.jsx";
 import useNotification from "./stores/useNotification.js";
-import { useBlogs, useBlogsControls } from "./stores/useBlogsStore.js";
-import useLoggedInUser from "./stores/useLoggedInUser.js";
-import Users from "./Users.jsx";
+import { useBlogs } from "./stores/useBlogsStore.js";
+import Users from "./components/Users.jsx";
 import User from "./components/User.jsx";
+import { useUser, useUserControls } from "./stores/userStore.js";
 
 const App = () => {
   const blogs = useBlogs();
-  const { addBlogToStore } = useBlogsControls();
   const { notification, setNotification, resetNotification } = useNotification(
     (state) => state,
   );
-  const { loggedUser, setLoggedUser } = useLoggedInUser();
+  const loggedUser = useUser();
+  const { setLoggedUser } = useUserControls();
   const navigate = useNavigate();
 
   const match = useMatch("/blogs/:id");
@@ -71,28 +71,6 @@ const App = () => {
     }
   };
 
-  const createBlog = async (createdBlog) => {
-    try {
-      const response = await blogService.create(createdBlog);
-      const newBlog = {
-        ...response,
-        user: loggedUser,
-      };
-      addBlogToStore(newBlog);
-      setNotification({
-        status: "success",
-        message: `Added blog ${newBlog.title} by ${newBlog.author}`,
-      });
-    } catch (error) {
-      setNotification({
-        status: "error",
-        message: error.message,
-      });
-      console.log(error);
-    }
-    navigate("/");
-  };
-
   return (
     <Container>
       <NavBar loggedUser={loggedUser} handleLogout={handleLogout} />
@@ -116,10 +94,7 @@ const App = () => {
                 />
               }
             />
-            <Route
-              path={"/create"}
-              element={<BlogForm createBlog={createBlog} />}
-            />
+            <Route path={"/create"} element={<BlogForm />} />
             <Route path={"*"} element={<PageNotFound />} />
           </Routes>
         </ErrorBoundary>
