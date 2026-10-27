@@ -14,11 +14,12 @@ import { useBlogs } from "./stores/blogsStore.js";
 import Users from "./components/Users.jsx";
 import User from "./components/User.jsx";
 import { useLoggedUserControls } from "./stores/loggedUserStore.js";
-import { useUsers } from "./stores/userStore.js";
+import { useUserControls, useUsers } from "./stores/userStore.js";
 
 const App = () => {
   const blogs = useBlogs();
   const users = useUsers();
+  const { initializeUsers } = useUserControls();
   const { setLoggedUser } = useLoggedUserControls();
 
   const blogMatch = useMatch("/blogs/:id");
@@ -29,6 +30,10 @@ const App = () => {
   const user = userMatch
     ? users.find((user) => user.id === userMatch.params.id)
     : null;
+
+  useEffect(() => {
+    initializeUsers();
+  }, [initializeUsers]);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("loggedUser"));

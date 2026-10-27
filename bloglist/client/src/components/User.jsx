@@ -11,9 +11,12 @@ export function User({ user }) {
 
   return (
     <div>
-      <p>This where we display all the info of users</p>
-      <p>{user.name}</p>
-      <p>{user.username}</p>
+      <h2>{user.name}</h2>
+      <h3>added blogs</h3>
+      <ol>
+        <li>eka blogi</li>
+        <li>toka blogi</li>
+      </ol>
     </div>
   );
 }
