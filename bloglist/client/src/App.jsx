@@ -14,13 +14,20 @@ import { useBlogs } from "./stores/blogsStore.js";
 import Users from "./components/Users.jsx";
 import User from "./components/User.jsx";
 import { useUserControls } from "./stores/userStore.js";
+import users from "./services/users.js";
 
 const App = () => {
   const blogs = useBlogs();
   const { setLoggedUser } = useUserControls();
 
-  const match = useMatch("/blogs/:id");
-  const blog = match ? blogs.find((note) => note.id === match.params.id) : null;
+  const blogMatch = useMatch("/blogs/:id");
+  const blog = blogMatch
+    ? blogs.find((blog) => blog.id === blogMatch.params.id)
+    : null;
+  const userMatch = useMatch("/users/:id");
+  const user = userMatch
+    ? users.find((user) => user.id === userMatch.params.id)
+    : null;
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("loggedUser"));
@@ -44,7 +51,7 @@ const App = () => {
         <ErrorBoundary>
           <Routes>
             <Route path="/blogs/:id" element={<Blog blog={blog} />} />
-            <Route path="/users/:id" element={<User />} />
+            <Route path="/users/:id" element={<User user={user} />} />
             <Route path="/" element={<Blogs />} />
             <Route path="users/" element={<Users />} />
             <Route path="/login" element={<LoginForm />} />
