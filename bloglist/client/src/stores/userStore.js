@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
 const userStore = create((set) => ({
-  loggedUser: null,
+  users: [],
   actions: {
-    setLoggedUser: (newUser) => set({ loggedUser: newUser }),
+    setUsers: (users) => set({ users }),
   },
 }));
 
-export const useUser = () => userStore((state) => state.loggedUser);
+export const useUsers = () => userStore((state) => state.users);
 export const useUserControls = () => userStore((state) => state.actions);

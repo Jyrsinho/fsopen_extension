@@ -3,10 +3,10 @@ import blogService from "../services/blogs.js";
 import { useBlogs, useBlogsControls } from "../stores/blogsStore.js";
 import { useNavigate } from "react-router-dom";
 import { useNotificationControls } from "../stores/notificationStore.js";
-import { useUser } from "../stores/userStore.js";
+import { useLoggedUser } from "../stores/loggedUserStore.js";
 
 const Blog = ({ blog }) => {
-  const loggedUser = useUser();
+  const loggedUser = useLoggedUser();
   const addedByUser = loggedUser?.username === blog?.user.username;
   const { setNotification } = useNotificationControls();
   const blogs = useBlogs();

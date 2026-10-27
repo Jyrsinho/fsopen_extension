@@ -2,7 +2,7 @@ import { Button, TextField } from "@mui/material";
 import blogService from "../services/blogs.js";
 import { useNavigate } from "react-router-dom";
 import { useBlogsControls } from "../stores/blogsStore.js";
-import { useUser } from "../stores/userStore.js";
+import { useLoggedUser } from "../stores/loggedUserStore.js";
 import useField from "../hooks/useField.js";
 import { useNotificationControls } from "../stores/notificationStore.js";
 
@@ -12,7 +12,7 @@ export function BlogForm() {
   const [url, urlReset] = useField("text", "normal", "url");
   const navigate = useNavigate();
   const { addBlogToStore } = useBlogsControls();
-  const loggedUser = useUser();
+  const loggedUser = useLoggedUser();
   const { setNotification } = useNotificationControls();
 
   const createBlog = async (createdBlog) => {

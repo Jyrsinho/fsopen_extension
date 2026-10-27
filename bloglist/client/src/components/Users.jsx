@@ -1,6 +1,6 @@
 // noinspection JSIgnoredPromiseFromCall
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   Paper,
   Table,
@@ -11,9 +11,12 @@ import {
   TableRow,
 } from "@mui/material";
 import userService from "../services/users.js";
+import { useUserControls, useUsers } from "../stores/userStore.js";
+import { Link } from "react-router-dom";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  const users = useUsers();
+  const { setUsers } = useUserControls();
   console.log("Users -", users);
   users.sort((a, b) => {
     if (a.blogs.length < b.blogs.length) return 1;
@@ -32,7 +35,7 @@ const Users = () => {
       }
     };
     fetchUsers();
-  }, []);
+  }, [setUsers]);
 
   if (!users.length) return null;
 
@@ -58,7 +61,7 @@ const Users = () => {
             {users.map((user) => (
               <TableRow key={user.id}>
                 <TableCell>
-                  <a href={`/users${user.id}`}>{user.name}</a>
+                  <Link to={`/users/${user.id}`}>{user.name} </Link>
                 </TableCell>
                 <TableCell>{user.username}</TableCell>
                 <TableCell>{user.blogs.length}</TableCell>

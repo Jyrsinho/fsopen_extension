@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { AppBar, Button, Toolbar } from "@mui/material";
-import { useUser } from "../stores/userStore.js";
+import { useLoggedUser } from "../stores/loggedUserStore.js";
 
 const style = {
   margin: "1em",
@@ -10,7 +10,7 @@ const style = {
 };
 
 const NavBar = ({ handleLogout }) => {
-  const loggedUser = useUser();
+  const loggedUser = useLoggedUser();
 
   return (
     <AppBar position="static">

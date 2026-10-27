@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import loginService from "../services/login";
 import blogService from "../services/blogs";
-import { useUserControls } from "../stores/userStore.js";
+import { useLoggedUserControls } from "../stores/loggedUserStore.js";
 import { useNavigate } from "react-router-dom";
 import { useNotificationControls } from "../stores/notificationStore.js";
 
 export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setLoggedUser } = useUserControls();
+  const { setLoggedUser } = useLoggedUserControls();
   const { setNotification } = useNotificationControls();
   const navigate = useNavigate();
 

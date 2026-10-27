@@ -13,12 +13,13 @@ import PageNotFound from "./components/PageNotFound.jsx";
 import { useBlogs } from "./stores/blogsStore.js";
 import Users from "./components/Users.jsx";
 import User from "./components/User.jsx";
-import { useUserControls } from "./stores/userStore.js";
-import users from "./services/users.js";
+import { useLoggedUserControls } from "./stores/loggedUserStore.js";
+import { useUsers } from "./stores/userStore.js";
 
 const App = () => {
   const blogs = useBlogs();
-  const { setLoggedUser } = useUserControls();
+  const users = useUsers();
+  const { setLoggedUser } = useLoggedUserControls();
 
   const blogMatch = useMatch("/blogs/:id");
   const blog = blogMatch
