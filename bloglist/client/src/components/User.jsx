@@ -13,10 +13,11 @@ export function User({ user }) {
     <div>
       <h2>{user.name}</h2>
       <h3>added blogs</h3>
-      <ol>
-        <li>eka blogi</li>
-        <li>toka blogi</li>
-      </ol>
+      <ul>
+        {user.blogs.map((blog) => (
+          <li key={blog.id}>{blog.title}</li>
+        ))}
+      </ul>
     </div>
   );
 }
