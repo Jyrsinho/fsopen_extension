@@ -1,6 +1,5 @@
 // noinspection JSIgnoredPromiseFromCall
 
-import { useEffect } from "react";
 import {
   Paper,
   Table,
@@ -10,32 +9,17 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import userService from "../services/users.js";
-import { useUserControls, useUsers } from "../stores/userStore.js";
+import { useUsers } from "../stores/userStore.js";
 import { Link } from "react-router-dom";
 
 const Users = () => {
   const users = useUsers();
-  const { setUsers } = useUserControls();
   console.log("Users -", users);
   users.sort((a, b) => {
     if (a.blogs.length < b.blogs.length) return 1;
     if (a.blogs.length > b.blogs.length) return -1;
     return 0;
   });
-
-  useEffect(() => {
-    console.log("running useEffect to fetch users");
-    const fetchUsers = async () => {
-      try {
-        const users = await userService.getAll();
-        setUsers(users);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchUsers();
-  }, [setUsers]);
 
   if (!users.length) return null;
 

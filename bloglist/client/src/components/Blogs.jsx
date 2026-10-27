@@ -1,38 +1,13 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import blogService from "../services/blogs.js";
-import { useBlogs, useBlogsControls } from "../stores/blogsStore.js";
-import { useNotificationControls } from "../stores/notificationStore.js";
+import { useBlogs } from "../stores/blogsStore.js";
 import { useLoggedUser } from "../stores/loggedUserStore.js";
 
 const Blogs = () => {
-  const { setNotification } = useNotificationControls();
   const loggedUser = useLoggedUser();
   const blogs = useBlogs();
-  const { setBlogsToStore } = useBlogsControls();
 
-  console.log("Blogs - ", blogs);
-
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const fetchedBlogs = await blogService.getAll();
-        console.log("fetchedBlogs : ", fetchedBlogs);
-        setNotification({
-          message: "successfully fetched blogs",
-          status: "success",
-        });
-        setBlogsToStore(fetchedBlogs);
-      } catch (error) {
-        console.log(error);
-        setNotification({
-          status: "error",
-          message: error.message,
-        });
-      }
-    };
-    fetchBlogs();
-  }, [setNotification, loggedUser, setBlogsToStore]);
+  console.log("Blogs LoggedUser", loggedUser);
+  console.log("Blogs blogs", blogs);
 
   if (!loggedUser || !blogs) return null;
 

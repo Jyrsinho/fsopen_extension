@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import blogService from "../services/blogs";
 
 const blogsStore = create((set) => ({
   blogs: [],
@@ -10,6 +11,10 @@ const blogsStore = create((set) => ({
       set((state) => ({
         blogs: state.blogs.filter((blog) => blog.id !== idToRemove),
       }));
+    },
+    initializeBlogs: async () => {
+      const fetchedBlogs = await blogService.getAll();
+      set({ blogs: fetchedBlogs });
     },
   },
 }));

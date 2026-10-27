@@ -10,17 +10,20 @@ import { Container } from "@mui/material";
 import NavBar from "./components/NavBar.jsx";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import PageNotFound from "./components/PageNotFound.jsx";
-import { useBlogs } from "./stores/blogsStore.js";
+import { useBlogs, useBlogsControls } from "./stores/blogsStore.js";
 import Users from "./components/Users.jsx";
 import User from "./components/User.jsx";
 import { useLoggedUserControls } from "./stores/loggedUserStore.js";
 import { useUserControls, useUsers } from "./stores/userStore.js";
+import { useNotificationControls } from "./stores/notificationStore.js";
 
 const App = () => {
   const blogs = useBlogs();
   const users = useUsers();
   const { initializeUsers } = useUserControls();
+  const { initializeBlogs } = useBlogsControls();
   const { setLoggedUser } = useLoggedUserControls();
+  const { setNotification } = useNotificationControls();
 
   const blogMatch = useMatch("/blogs/:id");
   const blog = blogMatch
@@ -32,10 +35,6 @@ const App = () => {
     : null;
 
   useEffect(() => {
-    initializeUsers();
-  }, [initializeUsers]);
-
-  useEffect(() => {
     const user = JSON.parse(localStorage.getItem("loggedUser"));
     if (user) {
       setLoggedUser(user);
@@ -44,6 +43,32 @@ const App = () => {
       console.log("did not find logged user from local storage");
     }
   }, [setLoggedUser]);
+
+  useEffect(() => {
+    const initUsers = async () => {
+      try {
+        await initializeUsers();
+        console.log("initialized users");
+      } catch (err) {
+        console.log(err);
+        setNotification(err.message);
+      }
+    };
+    initUsers();
+  }, [initializeUsers, setNotification]);
+
+  useEffect(() => {
+    const initBlogs = async () => {
+      try {
+        await initializeBlogs();
+        console.log("initialized blogs");
+      } catch (error) {
+        setNotification(error.message);
+        console.error(error);
+      }
+    };
+    initBlogs();
+  }, [initializeBlogs, setNotification]);
 
   const handleLogout = () => {
     setLoggedUser(null);
