@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import blogService from "../services/blogs.js";
-import useNotification from "../stores/useNotification.js";
-import { useBlogs, useBlogsControls } from "../stores/useBlogsStore.js";
+import { useBlogs, useBlogsControls } from "../stores/blogsStore.js";
+import { useNotificationControls } from "../stores/notificationStore.js";
 
 const Blogs = ({ loggedUser }) => {
-  const { setNotification } = useNotification((state) => state);
+  const { setNotification } = useNotificationControls();
   const blogs = useBlogs();
   const { setBlogsToStore } = useBlogsControls();
 

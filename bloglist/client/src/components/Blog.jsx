@@ -1,12 +1,12 @@
 import { Button, ButtonGroup, Card } from "@mui/material";
 import blogService from "../services/blogs.js";
-import useNotification from "../stores/useNotification.js";
-import { useBlogs, useBlogsControls } from "../stores/useBlogsStore.js";
+import { useBlogs, useBlogsControls } from "../stores/blogsStore.js";
 import { useNavigate } from "react-router-dom";
+import { useNotificationControls } from "../stores/notificationStore.js";
 
 const Blog = ({ blog, loggedUser }) => {
   const addedByUser = loggedUser?.username === blog?.user.username;
-  const { setNotification } = useNotification((state) => state);
+  const { setNotification } = useNotificationControls();
   const blogs = useBlogs();
   const { setBlogsToStore, removeBlogFromStore } = useBlogsControls();
   const navigate = useNavigate();

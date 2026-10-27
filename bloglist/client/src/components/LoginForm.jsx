@@ -1,9 +1,39 @@
 import { useState } from "react";
 import { Button, TextField } from "@mui/material";
+import loginService from "../services/login";
+import blogService from "../services/blogs";
+import { useUserControls } from "../stores/userStore.js";
+import { useNavigate } from "react-router-dom";
+import { useNotificationControls } from "../stores/notificationStore.js";
 
-export function LoginForm({ handleLogin }) {
+export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { setLoggedUser } = useUserControls();
+  const { setNotification } = useNotificationControls();
+  const navigate = useNavigate();
+
+  const handleLogin = async (e, credentials) => {
+    console.log("handleLogin - credentials", credentials);
+    e.preventDefault();
+    try {
+      const user = await loginService.login(credentials);
+      window.localStorage.setItem("loggedUser", JSON.stringify(user));
+      blogService.setToken(user.token);
+      setLoggedUser(user);
+      setNotification({
+        status: "success",
+        message: `${user.name} logged in`,
+      });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      setNotification({
+        status: "error",
+        message: "wrong username or password",
+      });
+    }
+  };
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-const useBlogsStore = create((set) => ({
+const blogsStore = create((set) => ({
   blogs: [],
   actions: {
     setBlogsToStore: (blogs) => set({ blogs }),
@@ -14,5 +14,5 @@ const useBlogsStore = create((set) => ({
   },
 }));
 
-export const useBlogs = () => useBlogsStore((state) => state.blogs);
-export const useBlogsControls = () => useBlogsStore((state) => state.actions);
+export const useBlogs = () => blogsStore((state) => state.blogs);
+export const useBlogsControls = () => blogsStore((state) => state.actions);

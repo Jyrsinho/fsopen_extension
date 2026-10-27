@@ -1,7 +1,13 @@
 import { useEffect } from "react";
 import { Alert } from "@mui/material";
+import {
+  useNotification,
+  useNotificationControls,
+} from "../stores/notificationStore.js";
 
-export function Notification({ notification, resetNotification }) {
+export function Notification() {
+  const notification = useNotification();
+  const { resetNotification } = useNotificationControls();
   const textColor = notification?.status === "success" ? "green" : "red";
 
   const style = {
