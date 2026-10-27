@@ -9,6 +9,20 @@ const userStore = create((set) => ({
       const fetchedUsers = await userService.getAll();
       set({ users: fetchedUsers });
     },
+    addBlogToUser: (loggedUser, newBlog) => {
+      set((state) => ({
+        users: state.users.map((user) =>
+          user.id === loggedUser.id
+            ? { ...user, blogs: [...user.blogs, newBlog] }
+            : user,
+        ),
+      }));
+    },
+    removeBlogFromUser: (loggedUser, blogToRemoveID) => {
+      set((state) => ({
+        users,
+      }));
+    },
   },
 }));
 

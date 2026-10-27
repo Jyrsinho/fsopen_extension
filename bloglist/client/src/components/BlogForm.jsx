@@ -5,6 +5,7 @@ import { useBlogsControls } from "../stores/blogsStore.js";
 import { useLoggedUser } from "../stores/loggedUserStore.js";
 import useField from "../hooks/useField.js";
 import { useNotificationControls } from "../stores/notificationStore.js";
+import { useUserControls } from "../stores/userStore.js";
 
 export function BlogForm() {
   const [title, titleReset] = useField("text", "normal", "title");
@@ -12,6 +13,7 @@ export function BlogForm() {
   const [url, urlReset] = useField("text", "normal", "url");
   const navigate = useNavigate();
   const { addBlogToStore } = useBlogsControls();
+  const { addBlogToUser } = useUserControls();
   const loggedUser = useLoggedUser();
   const { setNotification } = useNotificationControls();
 
@@ -23,6 +25,7 @@ export function BlogForm() {
         user: loggedUser,
       };
       addBlogToStore(newBlog);
+      addBlogToUser(loggedUser, newBlog);
       setNotification({
         status: "success",
         message: `Added blog ${newBlog.title} by ${newBlog.author}`,
