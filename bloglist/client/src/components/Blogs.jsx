@@ -3,9 +3,11 @@ import { useEffect } from "react";
 import blogService from "../services/blogs.js";
 import { useBlogs, useBlogsControls } from "../stores/blogsStore.js";
 import { useNotificationControls } from "../stores/notificationStore.js";
+import { useUser } from "../stores/userStore.js";
 
-const Blogs = ({ loggedUser }) => {
+const Blogs = () => {
   const { setNotification } = useNotificationControls();
+  const loggedUser = useUser();
   const blogs = useBlogs();
   const { setBlogsToStore } = useBlogsControls();
 

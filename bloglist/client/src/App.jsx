@@ -13,53 +13,41 @@ import PageNotFound from "./components/PageNotFound.jsx";
 import { useBlogs } from "./stores/blogsStore.js";
 import Users from "./components/Users.jsx";
 import User from "./components/User.jsx";
-import { useUser, useUserControls } from "./stores/userStore.js";
+import { useUserControls } from "./stores/userStore.js";
 
 const App = () => {
   const blogs = useBlogs();
-  const loggedUser = useUser();
   const { setLoggedUser } = useUserControls();
 
   const match = useMatch("/blogs/:id");
   const blog = match ? blogs.find((note) => note.id === match.params.id) : null;
 
-  console.log("user Logged in: ", loggedUser);
-
   useEffect(() => {
-    console.log("fetching user from local storage...");
     const user = JSON.parse(localStorage.getItem("loggedUser"));
     if (user) {
-      console.log("found user from localStorage");
       setLoggedUser(user);
       blogService.setToken(user.token);
     } else {
-      console.log("user not found from localStorage");
+      console.log("did not find logged user from local storage");
     }
   }, [setLoggedUser]);
 
   const handleLogout = () => {
-    console.log("handleLogOut");
     setLoggedUser(null);
     localStorage.removeItem("loggedUser");
   };
 
   return (
     <Container>
-      <NavBar loggedUser={loggedUser} handleLogout={handleLogout} />
+      <NavBar handleLogout={handleLogout} />
       <div>
         <ErrorBoundary>
           <Routes>
-            <Route
-              path="/blogs/:id"
-              element={<Blog blog={blog} loggedUser={loggedUser} />}
-            />
+            <Route path="/blogs/:id" element={<Blog blog={blog} />} />
             <Route path="/users/:id" element={<User />} />
-            <Route path="/" element={<Blogs loggedUser={loggedUser} />} />
+            <Route path="/" element={<Blogs />} />
             <Route path="users/" element={<Users />} />
-            <Route
-              path="/login"
-              element={<LoginForm loggedUser={loggedUser} />}
-            />
+            <Route path="/login" element={<LoginForm />} />
             <Route path={"/create"} element={<BlogForm />} />
             <Route path={"*"} element={<PageNotFound />} />
           </Routes>
