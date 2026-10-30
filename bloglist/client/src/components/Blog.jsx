@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useNotificationControls } from "../stores/notificationStore.js";
 import { useLoggedUser } from "../stores/loggedUserStore.js";
 import { useUserControls } from "../stores/userStore.js";
+import { CommentForm } from "./CommentForm.jsx";
+import Comments from "./Comments.jsx";
 
 const Blog = ({ blog }) => {
   const loggedUser = useLoggedUser();
@@ -74,6 +76,8 @@ const Blog = ({ blog }) => {
         <li>Added by {blog.user.name}</li>
         <li data-testid={"likes"}> likes: {blog.likes}</li>
       </ul>
+      <Comments comments={blog.comments} />
+      <CommentForm />
       <ButtonGroup size="medium">
         {addedByUser && (
           <Button color={"warning"} onClick={() => removeBlog(blog)}>

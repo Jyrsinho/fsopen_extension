@@ -1,6 +1,4 @@
 export function User({ user }) {
-  console.log("user inside User component", user);
-
   if (!user) {
     return (
       <div>
