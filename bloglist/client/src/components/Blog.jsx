@@ -4,6 +4,7 @@ import { useBlogs, useBlogsControls } from "../stores/blogsStore.js";
 import { useNavigate } from "react-router-dom";
 import { useNotificationControls } from "../stores/notificationStore.js";
 import { useLoggedUser } from "../stores/loggedUserStore.js";
+import { useUserControls } from "../stores/userStore.js";
 
 const Blog = ({ blog }) => {
   const loggedUser = useLoggedUser();
@@ -11,6 +12,7 @@ const Blog = ({ blog }) => {
   const { setNotification } = useNotificationControls();
   const blogs = useBlogs();
   const { setBlogsToStore, removeBlogFromStore } = useBlogsControls();
+  const { removeBlogFromUser } = useUserControls();
   const navigate = useNavigate();
 
   const addALike = async (likedBlog) => {
@@ -38,13 +40,14 @@ const Blog = ({ blog }) => {
     );
     if (!confirm) return;
     try {
-      navigate("/");
       await blogService.deleteBlog(blogToRemove.id);
       removeBlogFromStore(blogToRemove.id);
+      removeBlogFromUser(loggedUser, blogToRemove);
       setNotification({
         status: "success",
         message: `Removed blog ${blogToRemove.title} by ${blogToRemove.author}`,
       });
+      navigate("/");
     } catch (error) {
       setNotification({
         status: "error",

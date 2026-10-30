@@ -1,1 +1,1 @@
-Blogin lisääminen ei päivitä käyttäjän blogien tilaa.
+LoggedUseriin kannattaisi tallentaa id lisäämisen ja poistamisen helpottamiseksi.

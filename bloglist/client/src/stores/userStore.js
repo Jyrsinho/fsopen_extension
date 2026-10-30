@@ -18,6 +18,18 @@ const userStore = create((set) => ({
         ),
       }));
     },
+    removeBlogFromUser: (loggedUser, blogToRemove) => {
+      set((state) => ({
+        users: state.users.map((user) =>
+          user.name === loggedUser.name
+            ? {
+                ...user,
+                blogs: user.blogs.filter((blog) => blog.id !== blogToRemove.id),
+              }
+            : user,
+        ),
+      }));
+    },
   },
 }));
 
