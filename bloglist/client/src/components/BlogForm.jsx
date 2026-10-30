@@ -25,11 +25,15 @@ export function BlogForm() {
         user: loggedUser,
       };
       addBlogToStore(newBlog);
+      console.log("inside createBlog -function");
+      console.log("loggedUser", loggedUser);
+      console.log("newBlog", newBlog);
       addBlogToUser(loggedUser, newBlog);
       setNotification({
         status: "success",
         message: `Added blog ${newBlog.title} by ${newBlog.author}`,
       });
+      navigate("/");
     } catch (error) {
       setNotification({
         status: "error",
@@ -37,7 +41,6 @@ export function BlogForm() {
       });
       console.log(error);
     }
-    navigate("/");
   };
 
   const onSubmit = (e) => {

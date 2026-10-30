@@ -12,15 +12,10 @@ const userStore = create((set) => ({
     addBlogToUser: (loggedUser, newBlog) => {
       set((state) => ({
         users: state.users.map((user) =>
-          user.id === loggedUser.id
+          user.name === loggedUser.name
             ? { ...user, blogs: [...user.blogs, newBlog] }
             : user,
         ),
-      }));
-    },
-    removeBlogFromUser: (loggedUser, blogToRemoveID) => {
-      set((state) => ({
-        users,
       }));
     },
   },

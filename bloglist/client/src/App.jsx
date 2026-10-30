@@ -84,7 +84,7 @@ const App = () => {
             <Route path="/blogs/:id" element={<Blog blog={blog} />} />
             <Route path="/users/:id" element={<User user={user} />} />
             <Route path="/" element={<Blogs />} />
-            <Route path="users/" element={<Users />} />
+            <Route path="/users/" element={<Users />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path={"/create"} element={<BlogForm />} />
             <Route path={"*"} element={<PageNotFound />} />
