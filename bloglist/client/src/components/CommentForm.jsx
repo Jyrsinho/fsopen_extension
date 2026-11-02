@@ -2,7 +2,16 @@ import { TextField } from "@mui/material";
 import useField from "../hooks/useField.js";
 
 export function CommentForm() {
-  const [comment, resetComment] = useField("text", "normal", "comment");
+  const containerStyle = {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    margin: "1em",
+  };
+
+  const buttonStyle = {};
+
+  const [comment, resetComment] = useField("text", "none", "comment");
 
   const addComment = () => {
     console.log("lets add a comment");
@@ -11,9 +20,11 @@ export function CommentForm() {
   };
 
   return (
-    <div>
+    <div style={containerStyle}>
       <TextField {...comment}></TextField>
-      <button onClick={addComment}>comment</button>
+      <button style={buttonStyle} onClick={addComment}>
+        comment
+      </button>
     </div>
   );
 }

@@ -77,7 +77,6 @@ const Blog = ({ blog }) => {
         <li data-testid={"likes"}> likes: {blog.likes}</li>
       </ul>
       <Comments comments={blog.comments} />
-      <CommentForm />
       <ButtonGroup size="medium">
         {addedByUser && (
           <Button color={"warning"} onClick={() => removeBlog(blog)}>
