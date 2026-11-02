@@ -27,6 +27,9 @@ app.use(tokenExtractor);
 
 if (process.env.NODE_ENV === "development") {
   app.use(requestLogger);
+}
+
+if (process.env.NODE_ENV === "test") {
   app.use("/api/testing", testingRouter);
 }
 
