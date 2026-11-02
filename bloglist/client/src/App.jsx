@@ -16,6 +16,7 @@ import User from "./components/User.jsx";
 import { useLoggedUserControls } from "./stores/loggedUserStore.js";
 import { useUserControls, useUsers } from "./stores/userStore.js";
 import { useNotificationControls } from "./stores/notificationStore.js";
+import { getUser, removeUser } from "./services/persistentUser.js";
 
 const App = () => {
   const blogs = useBlogs();
@@ -35,7 +36,7 @@ const App = () => {
     : null;
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("loggedUser"));
+    const user = getUser();
     if (user) {
       setLoggedUser(user);
       blogService.setToken(user.token);
@@ -72,7 +73,7 @@ const App = () => {
 
   const handleLogout = () => {
     setLoggedUser(null);
-    localStorage.removeItem("loggedUser");
+    removeUser();
   };
 
   return (

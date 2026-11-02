@@ -7,7 +7,7 @@ const BlogList = ({ blogs }) => {
     <List>
       {blogs.map((blog) => {
         return (
-          <ListItem key={blog.id}>{`${blog.name} by ${blog.author}`}</ListItem>
+          <ListItem key={blog.id}>{`${blog.title} by ${blog.author}`}</ListItem>
         );
       })}
     </List>

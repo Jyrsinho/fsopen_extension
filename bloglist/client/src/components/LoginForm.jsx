@@ -5,6 +5,7 @@ import blogService from "../services/blogs";
 import { useLoggedUserControls } from "../stores/loggedUserStore.js";
 import { useNavigate } from "react-router-dom";
 import { useNotificationControls } from "../stores/notificationStore.js";
+import { saveUser } from "../services/persistentUser.js";
 
 export function LoginForm() {
   const [username, setUsername] = useState("");
@@ -18,7 +19,7 @@ export function LoginForm() {
     e.preventDefault();
     try {
       const user = await loginService.login(credentials);
-      window.localStorage.setItem("loggedUser", JSON.stringify(user));
+      saveUser(user);
       blogService.setToken(user.token);
       setLoggedUser(user);
       setNotification({

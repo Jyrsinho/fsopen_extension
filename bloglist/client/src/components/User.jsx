@@ -1,4 +1,5 @@
 import Blogs from "./Blogs.jsx";
+import BlogList from "./BlogList.jsx";
 
 export function User({ user }) {
   if (!user) {
@@ -14,7 +15,7 @@ export function User({ user }) {
       <h2>{user.name}</h2>
       <h3>added blogs</h3>
       <ul>
-        <Blogs blogs={user.blogs}></Blogs>
+        <BlogList blogs={user.blogs}></BlogList>
       </ul>
     </div>
   );
