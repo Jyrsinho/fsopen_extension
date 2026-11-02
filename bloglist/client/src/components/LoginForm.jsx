@@ -2,7 +2,10 @@ import { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import loginService from "../services/login";
 import blogService from "../services/blogs";
-import { useLoggedUserControls } from "../stores/loggedUserStore.js";
+import {
+  useLoggedUser,
+  useLoggedUserControls,
+} from "../stores/loggedUserStore.js";
 import { useNavigate } from "react-router-dom";
 import { useNotificationControls } from "../stores/notificationStore.js";
 import { saveUser } from "../services/persistentUser.js";
@@ -10,6 +13,7 @@ import { saveUser } from "../services/persistentUser.js";
 export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const loggedUser = useLoggedUser();
   const { setLoggedUser } = useLoggedUserControls();
   const { setNotification } = useNotificationControls();
   const navigate = useNavigate();
@@ -19,14 +23,18 @@ export function LoginForm() {
     e.preventDefault();
     try {
       const user = await loginService.login(credentials);
+      console.log("succesfully logged in to backennd");
       saveUser(user);
+      console.log("succesfully added user to localStorage");
       blogService.setToken(user.token);
+      console.log("added token to blogSErvice");
       setLoggedUser(user);
       setNotification({
         status: "success",
         message: `${user.name} logged in`,
       });
       navigate("/");
+      console.log("navigated");
     } catch (error) {
       console.log(error);
       setNotification({
@@ -35,6 +43,10 @@ export function LoginForm() {
       });
     }
   };
+
+  if (loggedUser) {
+    return <Button>logout</Button>;
+  }
 
   return (
     <div>

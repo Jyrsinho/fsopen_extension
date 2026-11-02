@@ -26,6 +26,8 @@ const App = () => {
   const { setLoggedUser } = useLoggedUserControls();
   const { setNotification } = useNotificationControls();
 
+  console.log("Blogs - -", blogs);
+
   const blogMatch = useMatch("/blogs/:id");
   const blog = blogMatch
     ? blogs.find((blog) => blog.id === blogMatch.params.id)

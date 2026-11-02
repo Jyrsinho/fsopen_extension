@@ -1,10 +1,7 @@
 import { create } from "zustand";
 
 const notificationStore = create((set) => ({
-  notification: {
-    message: "default notification from zustand",
-    status: "success",
-  },
+  notification: null,
   actions: {
     setNotification: (notification) => {
       console.log("setting message", notification);
