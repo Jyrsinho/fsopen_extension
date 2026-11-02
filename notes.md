@@ -1,1 +1,0 @@
-LoggedUseriin kannattaisi tallentaa id lisäämisen ja poistamisen helpottamiseksi.

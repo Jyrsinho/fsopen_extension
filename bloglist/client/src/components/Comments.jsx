@@ -1,12 +1,6 @@
 import { CommentForm } from "./CommentForm.jsx";
 
-const Comments = () => {
-  const comments = [
-    "en pidä tästä",
-    "Claude olisi tehnyt paremman",
-    "Minusta kirjoittaminen on tyhmää",
-  ];
-
+const Comments = ({ comments }) => {
   return (
     <>
       <div>
@@ -14,7 +8,7 @@ const Comments = () => {
         <ul>
           {comments &&
             comments.map((comment) => {
-              return <li>{comment}</li>;
+              return <li key={comment}>{comment}</li>;
             })}
         </ul>
       </div>

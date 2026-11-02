@@ -12,6 +12,15 @@ const blogsStore = create((set) => ({
         blogs: state.blogs.filter((blog) => blog.id !== idToRemove),
       }));
     },
+    addCommentToBlog: (commentedBlog, newComment) => {
+      set((state) => ({
+        blogs: state.blogs.map((blog) => {
+          return blog.id === commentedBlog.id
+            ? { ...blog, comments: [...blog.comments, newComment] }
+            : blog;
+        }),
+      }));
+    },
     initializeBlogs: async () => {
       const fetchedBlogs = await blogService.getAll();
       set({ blogs: fetchedBlogs });
