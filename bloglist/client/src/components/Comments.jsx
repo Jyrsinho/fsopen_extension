@@ -1,6 +1,6 @@
 import { CommentForm } from "./CommentForm.jsx";
 
-const Comments = ({ comments }) => {
+const Comments = ({ addComment, comments }) => {
   return (
     <>
       <div>
@@ -12,7 +12,7 @@ const Comments = ({ comments }) => {
             })}
         </ul>
       </div>
-      <CommentForm />
+      <CommentForm addComment={addComment} />
     </>
   );
 };

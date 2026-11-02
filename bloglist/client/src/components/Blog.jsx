@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useNotificationControls } from "../stores/notificationStore.js";
 import { useLoggedUser } from "../stores/loggedUserStore.js";
 import { useUserControls } from "../stores/userStore.js";
-import { CommentForm } from "./CommentForm.jsx";
 import Comments from "./Comments.jsx";
 
 const Blog = ({ blog }) => {
@@ -13,9 +12,13 @@ const Blog = ({ blog }) => {
   const addedByUser = loggedUser?.username === blog?.user.username;
   const { setNotification } = useNotificationControls();
   const blogs = useBlogs();
-  const { setBlogsToStore, removeBlogFromStore } = useBlogsControls();
+  const { setBlogsToStore, removeBlogFromStore, addCommentToBlog } =
+    useBlogsControls();
   const { removeBlogFromUser } = useUserControls();
   const navigate = useNavigate();
+
+  console.log("Blog component...");
+  console.log("blog variable- ", blog);
 
   const addALike = async (likedBlog) => {
     const blogToSave = {
@@ -58,6 +61,18 @@ const Blog = ({ blog }) => {
     }
   };
 
+  const addComment = async (comment) => {
+    try {
+      //await blogService.addComment(blogToComment, comment);
+      addCommentToBlog(blog, comment);
+    } catch (error) {
+      setNotification({
+        status: "error",
+        message: error.message,
+      });
+    }
+  };
+
   if (!blog) return null;
 
   return (
@@ -76,7 +91,7 @@ const Blog = ({ blog }) => {
         <li>Added by {blog.user.name}</li>
         <li data-testid={"likes"}> likes: {blog.likes}</li>
       </ul>
-      <Comments comments={blog.comments} />
+      <Comments addComment={addComment} comments={blog.comments} />
       <ButtonGroup size="medium">
         {addedByUser && (
           <Button color={"warning"} onClick={() => removeBlog(blog)}>
