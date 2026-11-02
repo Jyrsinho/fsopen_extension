@@ -61,7 +61,9 @@ export function BlogForm() {
       <TextField {...title} />
       <TextField {...author} />
       <TextField {...url} />
-      <Button type={"submit"}>save</Button>
+      <Button type={"submit"} color={"inherit"}>
+        save
+      </Button>
     </form>
   );
 }
