@@ -22,6 +22,13 @@ const put = async (newBlog, id) => {
   return response.data;
 };
 
+const addComment = async (newComment, id) => {
+  const response = await axios.post(`${baseUrl}/${id}/comments`, {
+    newComment,
+  });
+  return response.data;
+};
+
 const create = async (newBlog) => {
   const config = {
     headers: {
@@ -48,4 +55,5 @@ export default {
   setToken,
   put,
   deleteBlog,
+  addComment,
 };

@@ -63,9 +63,11 @@ const Blog = ({ blog }) => {
 
   const addComment = async (comment) => {
     try {
-      //await blogService.addComment(blogToComment, comment);
+      const mutatedBlog = await blogService.addComment(comment, blog.id);
+      console.log("mutatedBlog", mutatedBlog);
       addCommentToBlog(blog, comment);
     } catch (error) {
+      console.log("ei onnistunut kommentin lisääminen backendiin");
       setNotification({
         status: "error",
         message: error.message,
