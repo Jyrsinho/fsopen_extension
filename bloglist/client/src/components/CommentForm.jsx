@@ -11,7 +11,7 @@ export function CommentForm({ addComment }) {
 
   const buttonStyle = {};
 
-  const [comment, resetComment] = useField("text", "none", "comment");
+  const [comment, resetComment] = useField("text", "none", "add comment");
 
   return (
     <div style={containerStyle}>
@@ -23,7 +23,7 @@ export function CommentForm({ addComment }) {
           resetComment();
         }}
       >
-        comment
+        add comment
       </button>
     </div>
   );

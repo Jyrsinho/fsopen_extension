@@ -26,8 +26,6 @@ const App = () => {
   const { setLoggedUser } = useLoggedUserControls();
   const { setNotification } = useNotificationControls();
 
-  console.log("Blogs - -", blogs);
-
   const blogMatch = useMatch("/blogs/:id");
   const blog = blogMatch
     ? blogs.find((blog) => blog.id === blogMatch.params.id)
@@ -43,7 +41,6 @@ const App = () => {
       setLoggedUser(user);
       blogService.setToken(user.token);
     } else {
-      console.log("did not find logged user from local storage");
     }
   }, [setLoggedUser]);
 
@@ -51,9 +48,7 @@ const App = () => {
     const initUsers = async () => {
       try {
         await initializeUsers();
-        console.log("initialized users");
       } catch (err) {
-        console.log(err);
         setNotification(err.message);
       }
     };
@@ -64,10 +59,8 @@ const App = () => {
     const initBlogs = async () => {
       try {
         await initializeBlogs();
-        console.log("initialized blogs");
       } catch (error) {
         setNotification(error.message);
-        console.error(error);
       }
     };
     initBlogs();
@@ -76,6 +69,7 @@ const App = () => {
   const handleLogout = () => {
     setLoggedUser(null);
     removeUser();
+    console.log("logged out");
   };
 
   return (

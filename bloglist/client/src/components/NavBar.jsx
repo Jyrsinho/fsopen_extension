@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AppBar, Button, Toolbar } from "@mui/material";
 import { useLoggedUser } from "../stores/loggedUserStore.js";
 
@@ -11,6 +11,7 @@ const style = {
 
 const NavBar = ({ handleLogout }) => {
   const loggedUser = useLoggedUser();
+  const location = useLocation();
 
   return (
     <AppBar position="static">
@@ -26,9 +27,11 @@ const NavBar = ({ handleLogout }) => {
             logout
           </Button>
         ) : (
-          <Button color="inherit" component={Link} to={"/login"} sx={style}>
-            login
-          </Button>
+          location.pathname !== "/login" && (
+            <Button color="inherit" component={Link} to={"/login"} sx={style}>
+              login
+            </Button>
+          )
         )}
         <Button color="inherit" component={Link} to="/" sx={style}>
           blogs

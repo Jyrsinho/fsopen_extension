@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: "./tests",
   fullyParallel: false,
   workers: 1,
-  globalTimeout: 60 * 60 * 1000,
+  globalTimeout:  60 * 1000,
   reporter: "html",
   use: {
     baseURL: "http://localhost:5173",

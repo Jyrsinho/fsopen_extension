@@ -1,4 +1,5 @@
-import { List, ListItem } from "@mui/material";
+import { List } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const BlogList = ({ blogs }) => {
   if (!blogs) return null;
@@ -7,7 +8,10 @@ const BlogList = ({ blogs }) => {
     <List>
       {blogs.map((blog) => {
         return (
-          <ListItem key={blog.id}>{`${blog.title} by ${blog.author}`}</ListItem>
+          <Link
+            to={`/blogs/${blog.id}`}
+            key={blog.id}
+          >{`${blog.title} by ${blog.author}`}</Link>
         );
       })}
     </List>

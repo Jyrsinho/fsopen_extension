@@ -25,9 +25,6 @@ export function BlogForm() {
         user: loggedUser,
       };
       addBlogToStore(newBlog);
-      console.log("inside createBlog -function");
-      console.log("loggedUser", loggedUser);
-      console.log("newBlog", newBlog);
       addBlogToUser(loggedUser, newBlog);
       setNotification({
         status: "success",

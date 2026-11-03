@@ -2,10 +2,7 @@ import { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import loginService from "../services/login";
 import blogService from "../services/blogs";
-import {
-  useLoggedUser,
-  useLoggedUserControls,
-} from "../stores/loggedUserStore.js";
+import { useLoggedUserControls } from "../stores/loggedUserStore.js";
 import { useNavigate } from "react-router-dom";
 import { useNotificationControls } from "../stores/notificationStore.js";
 import { saveUser } from "../services/persistentUser.js";
@@ -13,29 +10,25 @@ import { saveUser } from "../services/persistentUser.js";
 export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const loggedUser = useLoggedUser();
   const { setLoggedUser } = useLoggedUserControls();
   const { setNotification } = useNotificationControls();
   const navigate = useNavigate();
 
   const handleLogin = async (e, credentials) => {
-    console.log("handleLogin - credentials", credentials);
     e.preventDefault();
     try {
       const user = await loginService.login(credentials);
-      console.log("succesfully logged in to backennd");
       saveUser(user);
-      console.log("succesfully added user to localStorage");
       blogService.setToken(user.token);
-      console.log("added token to blogSErvice");
       setLoggedUser(user);
       setNotification({
         status: "success",
         message: `${user.name} logged in`,
       });
-      navigate("/");
-      console.log("navigated");
+      await navigate("/");
+      console.log("successfully logged in");
     } catch (error) {
+      console.log("failed to log user in");
       console.log(error);
       setNotification({
         status: "error",
@@ -43,10 +36,6 @@ export function LoginForm() {
       });
     }
   };
-
-  if (loggedUser) {
-    return <Button>logout</Button>;
-  }
 
   return (
     <div>
