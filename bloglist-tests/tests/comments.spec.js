@@ -34,7 +34,7 @@ test.describe("Comments", () => {
     await page.getByRole("link", { name: blog.title }).click();
   });
 
-  test.only("a comment can be added to a blog and is shown immediately", async ({
+  test("a comment can be added to a blog and is shown immediately", async ({
     page,
   }) => {
     const comment = `a thoughtful comment ${Date.now()}`;
